@@ -1,4 +1,4 @@
-<```html
+```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -115,7 +115,7 @@
         }
         .hero-image {
             width: 100%;
-            height: 50%;
+            height: 100%;
             object-fit: cover;
         }
         .hero-content {
@@ -389,13 +389,6 @@
             .hero {
                 height: 400px;
             }
-            .hero-images {
-                flex-direction: row;
-            }
-            .hero-image {
-                width: 50%;
-                height: 100%;
-            }
             .hero-title {
                 font-size: 2rem;
             }
@@ -551,11 +544,10 @@
     <section class="hero">
         <div class="hero-images">
             <img src="A1.jpg">
-            <img src="A2.jpg">
         </div>
         <div class="hero-content">
             <h1 class="hero-title">Diseños que inspiran, <br> estilo que te representa</h1>
-            <button class="hero-button">Compra ahora</button>
+            <button class="hero-button" id="scroll-to-products">Compra ahora</button>
         </div>
     </section>
     
@@ -580,7 +572,7 @@
         </div>
     </section>
     
-    <section class="products-section">
+    <section class="products-section" id="products-section">
         <div class="section-container">
             <h2 class="section-title">Camisetas</h2>
             <p class="section-subtitle">Descubre nuestra colección de diseños únicos</p>
@@ -653,7 +645,7 @@
                     category: "Camisetas",
                     color: "Rojo",
                     price: 79900,
-                    image: "A1.jpg",
+                    image: "A2.jpg",
                     description: "Rompe las reglas, no los corazones",
                     detailedDescription: "Esta camiseta abstracta es perfecta para quienes buscan expresar su individualidad. Con un diseño único y atrevido, está confeccionada con algodón 100% orgánico de alta calidad que garantiza comodidad durante todo el día. Ideal para cualquier ocasión, desde eventos casuales hasta salidas con amigos. Su estampado resistente al lavado mantiene su vibrante color durante mucho tiempo."
                 },
@@ -938,7 +930,7 @@
                     price: 77900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+5",
                     description: "Las ideas fluyen como el agua",
-                    detailedDescription: "Libera tu flujo creativo con esta camiseta que celebra la fluidez de las ideas. Su diseño inspirador te recordará que la creatividad, como el agua, encuentra su camino cuando se le permite fluir libremente. Confeccionada con materiales suaves y transpirables que te permitirán moverte sin restricciones mientras das vida a tus ideas. El tono azul evoca la fluidez del agua, simbolizando la naturaleza adaptable y constante de la creatividad."
+                    detailedDescription: "Libera tu flujo creativo con esta camiseta que celebra la fluidez de las ideas. Su diseño inspirador te recordará que la creatividad, como el agua, encuentra su camino cuando se le permite fluir libremente. Fabricada con materiales suaves y transpirables que te permitirán moverte sin restricciones mientras das vida a tus ideas. El tono azul evoca la fluidez del agua, simbolizando la naturaleza adaptable y constante de la creatividad."
                 },
                 {
                     id: 30,
@@ -958,7 +950,7 @@
                     price: 76900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+7",
                     description: "Innovar es creer en lo imposible",
-                    detailedDescription: "Desafía los límites de lo posible con esta camiseta moderna que celebra la innovación audaz. Su mensaje inspirador te recordará que los mayores avances comienzan con la creencia en lo que otros consideran imposible. Confeccionada con materiales de última generación que combinan comodidad y funcionalidad. El diseño contemporáneo y el color azul vibrante te harán destacar como un pensador visionario y un creador de futuro."
+                    detailedDescription: "Desafía los límites de lo posible con esta camiseta moderna que celebra la innovación audaz. Su mensaje inspirador te recordará que los mayores avances comienzan con la creencia en lo que otros consideran imposible. Fabricada con materiales de última generación que combinan comodidad y funcionalidad. El diseño contemporáneo y el color azul vibrante te harán destacar como un pensador visionario y un creador de futuro."
                 },
                 {
                     id: 32,
@@ -1722,6 +1714,13 @@
                     });
                 });
             }
+            
+            // Scroll to products when clicking "Compra ahora"
+            const scrollToProductsBtn = document.getElementById('scroll-to-products');
+            scrollToProductsBtn.addEventListener('click', function() {
+                const productsSection = document.getElementById('products-section');
+                productsSection.scrollIntoView({ behavior: 'smooth' });
+            });
             
             // Modal functionality
             const modal = document.getElementById('product-modal');
