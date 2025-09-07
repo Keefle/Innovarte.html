@@ -1,0 +1,1498 @@
+```html
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>innovarte.com - Diseños que inspiran</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background-color: white;
+            color: black;
+            min-height: 100vh;
+        }
+
+        header {
+            position: sticky;
+            top: 0;
+            z-index: 50;
+            background-color: white;
+            border-bottom: 1px solid #e5e5e5;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .header-content {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            height: 4rem;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            letter-spacing: -0.5px;
+        }
+
+        .logo span {
+            color: #ef4444;
+        }
+
+        nav {
+            display: none;
+        }
+
+        @media (min-width: 768px) {
+            nav {
+                display: flex;
+                gap: 2rem;
+            }
+        }
+
+        .nav-link {
+            font-size: 0.875rem;
+            font-weight: 500;
+            color: #555;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .nav-link.active, .nav-link:hover {
+            color: black;
+            border-bottom: 2px solid black;
+        }
+
+        .mobile-menu {
+            display: block;
+            padding: 0.5rem;
+            color: #555;
+        }
+
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+
+        .hero {
+            position: relative;
+            height: 24rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: black;
+            color: white;
+            overflow: hidden;
+        }
+
+        @media (min-width: 768px) {
+            .hero {
+                height: 100vh;
+            }
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(to right, rgba(0,0,0,0.7) 0%, transparent 100%);
+            z-index: 10;
+        }
+
+        .hero-images {
+            position: absolute;
+            inset: 0;
+            display: flex;
+        }
+
+        .hero-image {
+            width: 50%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 20;
+            text-align: center;
+            padding: 0 1rem;
+            max-width: 800px;
+        }
+
+        .hero-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            line-height: 1.2;
+            margin-bottom: 1.5rem;
+        }
+
+        @media (min-width: 768px) {
+            .hero-title {
+                font-size: 3rem;
+            }
+        }
+
+        .hero-button {
+            background-color: #ef4444;
+            color: white;
+            font-weight: 600;
+            padding: 0.75rem 2rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .hero-button:hover {
+            background-color: #dc2626;
+            transform: scale(1.05);
+        }
+
+        .trust-section {
+            background-color: #f9fafb;
+            padding: 2rem 0;
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            text-align: center;
+        }
+
+        .trust-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+        }
+
+        .trust-text {
+            font-size: 1.125rem;
+            color: #6b7280;
+        }
+
+        .products-section {
+            padding: 4rem 0;
+            background-color: white;
+        }
+
+        .products-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .section-title {
+            font-size: 1.875rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+
+        .section-subtitle {
+            font-size: 1.125rem;
+            color: #6b7280;
+            max-width: 600px;
+            margin: 0 auto 3rem;
+            text-align: center;
+        }
+
+        .color-filters {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 0.75rem;
+            margin-bottom: 3rem;
+        }
+
+        .color-button {
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            color: white;
+            font-weight: 500;
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .color-button.active {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 2px white;
+        }
+
+        .color-red { background-color: #ef4444; }
+        .color-red:hover { background-color: #dc2626; }
+        .color-yellow { background-color: #eab308; }
+        .color-yellow:hover { background-color: #ca8a04; }
+        .color-green { background-color: #10b981; }
+        .color-green:hover { background-color: #059669; }
+        .color-blue { background-color: #3b82f6; }
+        .color-blue:hover { background-color: #2563eb; }
+        .color-gray { background-color: #6b7280; }
+        .color-gray:hover { background-color: #4b5563; }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+        }
+
+        @media (min-width: 640px) {
+            .products-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (min-width: 1024px) {
+            .products-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .products-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: 0.5rem;
+            overflow: hidden;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+            transition: box-shadow 0.3s;
+        }
+
+        .product-card:hover {
+            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+        }
+
+        .product-image-container {
+            background-color: #f3f4f6;
+            position: relative;
+        }
+
+        .product-image {
+            width: 100%;
+            height: 20rem;
+            object-fit: cover;
+            object-position: center;
+            transition: transform 0.3s;
+        }
+
+        .product-card:hover .product-image {
+            transform: scale(1.05);
+        }
+
+        .product-info {
+            padding: 1.5rem;
+        }
+
+        .product-name {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            color: #6b7280;
+            margin-bottom: 1rem;
+            font-style: italic;
+        }
+
+        .product-footer {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .product-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+
+        .add-to-cart {
+            background-color: black;
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 9999px;
+            border: none;
+            cursor: pointer;
+            font-weight: 500;
+            transition: background-color 0.3s;
+        }
+
+        .add-to-cart:hover {
+            background-color: #374151;
+        }
+
+        footer {
+            background-color: black;
+            color: white;
+            padding: 3rem 0;
+        }
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        .footer-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        @media (min-width: 768px) {
+            .footer-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .footer-logo {
+            font-size: 1.25rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .footer-description {
+            color: #9ca3af;
+            line-height: 1.6;
+        }
+
+        .footer-heading {
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .footer-links {
+            list-style: none;
+        }
+
+        .footer-link {
+            color: #9ca3af;
+            text-decoration: none;
+            margin-bottom: 0.5rem;
+            display: block;
+            transition: color 0.3s;
+        }
+
+        .footer-link:hover {
+            color: white;
+        }
+
+        .social-links {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .social-link {
+            color: #9ca3af;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-link:hover {
+            color: white;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #374151;
+            padding-top: 2rem;
+            text-align: center;
+            color: #9ca3af;
+        }
+
+        .no-products {
+            grid-column: 1 / -1;
+            text-align: center;
+            padding: 3rem 0;
+            color: #6b7280;
+            font-size: 1.25rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-container">
+            <div class="header-content">
+                <div class="logo">innovarte<span>.</span>com</div>
+                <nav>
+                    <a href="#" class="nav-link active" data-category="Camisetas">Camisetas</a>
+                    <a href="#" class="nav-link" data-category="Vasos o mugs">Vasos o mugs</a>
+                    <a href="#" class="nav-link" data-category="Gorras estampadas">Gorras estampadas</a>
+                </nav>
+                <button class="mobile-menu">
+                    <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <path d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+    </header>
+
+    <section class="hero">
+        <div class="hero-images">
+            <img src="https://placehold.co/960x1080/f53b57/ffffff?text=Persona+con+Camiseta+Roja" alt="Persona con camiseta roja" class="hero-image">
+            <img src="https://placehold.co/960x1080/3498db/ffffff?text=Persona+con+Camiseta+Azul" alt="Persona con camiseta azul" class="hero-image">
+        </div>
+        <div class="hero-content">
+            <h1 class="hero-title">Diseños que inspiran, <br> estilo que te representa</h1>
+            <button class="hero-button">Compra ahora</button>
+        </div>
+    </section>
+
+    <section class="trust-section">
+        <div class="trust-container">
+            <h3 class="trust-title">Envíos a toda Colombia</h3>
+            <p class="trust-text">Pago seguro 100% confiable</p>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="products-container">
+            <h2 class="section-title">Camisetas</h2>
+            <p class="section-subtitle">Selecciona un color para ver los productos disponibles</p>
+            
+            <div class="color-filters">
+                <button class="color-button color-gray active" data-color="Todos">Todos</button>
+                <button class="color-button color-red" data-color="Rojo">Rojo</button>
+                <button class="color-button color-yellow" data-color="Amarillo">Amarillo</button>
+                <button class="color-button color-green" data-color="Verde">Verde</button>
+                <button class="color-button color-blue" data-color="Azul">Azul</button>
+            </div>
+
+            <div class="products-grid" id="products-grid">
+                <!-- Products will be inserted here by JavaScript -->
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-container">
+            <div class="footer-grid">
+                <div>
+                    <h3 class="footer-logo">innovarte.com</h3>
+                    <p class="footer-description">Diseños únicos para personas únicas. Calidad, estilo y creatividad en cada producto.</p>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Contacto</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">info@innovarte.com</a></li>
+                        <li><a href="#" class="footer-link">+57 300 123 4567</a></li>
+                        <li><a href="#" class="footer-link">Bogotá, Colombia</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Redes Sociales</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-link">Instagram</a>
+                        <a href="#" class="social-link">Facebook</a>
+                        <a href="#" class="social-link">TikTok</a>
+                    </div>
+                </div>
+                <div>
+                    <h4 class="footer-heading">Políticas</h4>
+                    <ul class="footer-links">
+                        <li><a href="#" class="footer-link">Envíos</a></li>
+                        <li><a href="#" class="footer-link">Devoluciones</a></li>
+                        <li><a href="#" class="footer-link">Términos y condiciones</a></li>
+                        <li><a href="#" class="footer-link">Privacidad</a></li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2023 innovarte.com. Todos los derechos reservados.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const products = [
+                // Camisetas Rojas
+                {
+                    id: 1,
+                    name: "Camiseta Abstracta",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 79900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja",
+                    description: "Rompe las reglas, no los corazones"
+                },
+                {
+                    id: 2,
+                    name: "Camiseta Inspiracional",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 84900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+2",
+                    description: "Tu pasión es tu superpoder"
+                },
+                {
+                    id: 3,
+                    name: "Camiseta Creativa",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 74900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+3",
+                    description: "Arde con tu propia llama"
+                },
+                {
+                    id: 4,
+                    name: "Camiseta Moderna",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 89900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+4",
+                    description: "La vida es demasiado corta para ser aburrida"
+                },
+                {
+                    id: 5,
+                    name: "Camiseta Urbana",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 77900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+5",
+                    description: "Hazlo con pasión o no lo hagas"
+                },
+                {
+                    id: 6,
+                    name: "Camiseta Artística",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 82900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+6",
+                    description: "El arte es la mentira que nos permite reconocer la verdad"
+                },
+                {
+                    id: 7,
+                    name: "Camiseta Minimalista",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 76900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+7",
+                    description: "Menos es más, pero rojo es todo"
+                },
+                {
+                    id: 8,
+                    name: "Camiseta Elegante",
+                    category: "Camisetas",
+                    color: "Rojo",
+                    price: 91900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+8",
+                    description: "Viste tu actitud, no solo tu cuerpo"
+                },
+                
+                // Camisetas Amarillas
+                {
+                    id: 9,
+                    name: "Camiseta Solar",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 79900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla",
+                    description: "Brilla como el sol que llevas dentro"
+                },
+                {
+                    id: 10,
+                    name: "Camiseta Optimista",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 84900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+2",
+                    description: "Cada día es una nueva oportunidad"
+                },
+                {
+                    id: 11,
+                    name: "Camiseta Energética",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 74900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+3",
+                    description: "Tu energía cambia el mundo"
+                },
+                {
+                    id: 12,
+                    name: "Camiseta Alegre",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 89900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+4",
+                    description: "La felicidad es una elección diaria"
+                },
+                {
+                    id: 13,
+                    name: "Camiseta Creativa",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 77900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+5",
+                    description: "Tu imaginación no tiene límites"
+                },
+                {
+                    id: 14,
+                    name: "Camiseta Motivacional",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 82900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+6",
+                    description: "Convierte tus sueños en planes"
+                },
+                {
+                    id: 15,
+                    name: "Camiseta Moderna",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 76900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+7",
+                    description: "La creatividad es la inteligencia divirtiéndose"
+                },
+                {
+                    id: 16,
+                    name: "Camiseta Elegante",
+                    category: "Camisetas",
+                    color: "Amarillo",
+                    price: 91900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+8",
+                    description: "Sé la luz en la habitación"
+                },
+                
+                // Camisetas Verdes
+                {
+                    id: 17,
+                    name: "Camiseta Natural",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 79900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde",
+                    description: "Conecta con tu esencia"
+                },
+                {
+                    id: 18,
+                    name: "Camiseta Equilibrada",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 84900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+2",
+                    description: "Encuentra tu centro en el caos"
+                },
+                {
+                    id: 19,
+                    name: "Camiseta Renovable",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 74900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+3",
+                    description: "Crecer es un proceso constante"
+                },
+                {
+                    id: 20,
+                    name: "Camiseta Armoniosa",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 89900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+4",
+                    description: "La paz comienza contigo"
+                },
+                {
+                    id: 21,
+                    name: "Camiseta Sostenible",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 77900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+5",
+                    description: "Cuida tu mundo, empieza por ti"
+                },
+                {
+                    id: 22,
+                    name: "Camiseta Tranquila",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 82900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+6",
+                    description: "Respira profundo y sigue adelante"
+                },
+                {
+                    id: 23,
+                    name: "Camiseta Fresca",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 76900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+7",
+                    description: "La calma es tu superpoder"
+                },
+                {
+                    id: 24,
+                    name: "Camiseta Vital",
+                    category: "Camisetas",
+                    color: "Verde",
+                    price: 91900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+8",
+                    description: "Tu energía cura y transforma"
+                },
+                
+                // Camisetas Azules
+                {
+                    id: 25,
+                    name: "Camiseta Profunda",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 79900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul",
+                    description: "Explora las profundidades de tu ser"
+                },
+                {
+                    id: 26,
+                    name: "Camiseta Serena",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 84900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+2",
+                    description: "La tranquilidad es tu estado natural"
+                },
+                {
+                    id: 27,
+                    name: "Camiseta Inspiradora",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 74900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+3",
+                    description: "Sueña en grande, actúa con propósito"
+                },
+                {
+                    id: 28,
+                    name: "Camiseta Confiable",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 89900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+4",
+                    description: "Tu palabra es tu compromiso"
+                },
+                {
+                    id: 29,
+                    name: "Camiseta Creativa",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 77900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+5",
+                    description: "Las ideas fluyen como el agua"
+                },
+                {
+                    id: 30,
+                    name: "Camiseta Elegante",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 82900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+6",
+                    description: "La elegancia es una actitud, no una prenda"
+                },
+                {
+                    id: 31,
+                    name: "Camiseta Moderna",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 76900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+7",
+                    description: "Innovar es creer en lo imposible"
+                },
+                {
+                    id: 32,
+                    name: "Camiseta Profesional",
+                    category: "Camisetas",
+                    color: "Azul",
+                    price: 91900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+8",
+                    description: "Tu potencial es ilimitado"
+                },
+                
+                // Mugs Rojos
+                {
+                    id: 33,
+                    name: "Mug Apasionado",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 34900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo",
+                    description: "Empieza tu día con fuego"
+                },
+                {
+                    id: 34,
+                    name: "Mug Energético",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 39900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+2",
+                    description: "Tu energía mueve montañas"
+                },
+                {
+                    id: 35,
+                    name: "Mug Creativo",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 37900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+3",
+                    description: "La creatividad no tiene límites"
+                },
+                {
+                    id: 36,
+                    name: "Mug Motivacional",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 42900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+4",
+                    description: "Cada sorbo te acerca a tus metas"
+                },
+                {
+                    id: 37,
+                    name: "Mug Inspirador",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 36900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+5",
+                    description: "Tu pasión es contagiosa"
+                },
+                {
+                    id: 38,
+                    name: "Mug Moderno",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 41900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+6",
+                    description: "Diseño que complementa tu estilo"
+                },
+                {
+                    id: 39,
+                    name: "Mug Artístico",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 38900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+7",
+                    description: "El arte está en los detalles"
+                },
+                {
+                    id: 40,
+                    name: "Mug Elegante",
+                    category: "Vasos o mugs",
+                    color: "Rojo",
+                    price: 44900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+8",
+                    description: "Calidad que puedes sentir"
+                },
+                
+                // Mugs Amarillos
+                {
+                    id: 41,
+                    name: "Mug Solar",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 34900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo",
+                    description: "Llena tu día de luz"
+                },
+                {
+                    id: 42,
+                    name: "Mug Optimista",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 39900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+2",
+                    description: "Cada mañana es una nueva oportunidad"
+                },
+                {
+                    id: 43,
+                    name: "Mug Alegre",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 37900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+3",
+                    description: "La felicidad está en las pequeñas cosas"
+                },
+                {
+                    id: 44,
+                    name: "Mug Energético",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 42900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+4",
+                    description: "Tu energía positiva cambia todo"
+                },
+                {
+                    id: 45,
+                    name: "Mug Creativo",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 36900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+5",
+                    description: "Deja volar tu imaginación"
+                },
+                {
+                    id: 46,
+                    name: "Mug Motivacional",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 41900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+6",
+                    description: "Pequeños pasos, grandes logros"
+                },
+                {
+                    id: 47,
+                    name: "Mug Inspirador",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 38900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+7",
+                    description: "Brilla con tu propia luz"
+                },
+                {
+                    id: 48,
+                    name: "Mug Elegante",
+                    category: "Vasos o mugs",
+                    color: "Amarillo",
+                    price: 44900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+8",
+                    description: "Estilo que complementa tu día"
+                },
+                
+                // Mugs Verdes
+                {
+                    id: 49,
+                    name: "Mug Natural",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 34900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde",
+                    description: "Conecta con tu esencia cada mañana"
+                },
+                {
+                    id: 50,
+                    name: "Mug Equilibrado",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 39900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+2",
+                    description: "Encuentra tu centro en cada sorbo"
+                },
+                {
+                    id: 51,
+                    name: "Mug Renovable",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 37900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+3",
+                    description: "Crecer es un proceso constante"
+                },
+                {
+                    id: 52,
+                    name: "Mug Armonioso",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 42900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+4",
+                    description: "La paz comienza contigo"
+                },
+                {
+                    id: 53,
+                    name: "Mug Sostenible",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 36900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+5",
+                    description: "Cuida tu mundo, uno a la vez"
+                },
+                {
+                    id: 54,
+                    name: "Mug Tranquilo",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 41900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+6",
+                    description: "Respira profundo y disfruta"
+                },
+                {
+                    id: 55,
+                    name: "Mug Fresco",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 38900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+7",
+                    description: "La calma es tu superpoder"
+                },
+                {
+                    id: 56,
+                    name: "Mug Vital",
+                    category: "Vasos o mugs",
+                    color: "Verde",
+                    price: 44900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+8",
+                    description: "Tu energía cura y transforma"
+                },
+                
+                // Mugs Azules
+                {
+                    id: 57,
+                    name: "Mug Profundo",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 34900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul",
+                    description: "Explora las profundidades de tu ser"
+                },
+                {
+                    id: 58,
+                    name: "Mug Sereno",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 39900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+2",
+                    description: "La tranquilidad es tu estado natural"
+                },
+                {
+                    id: 59,
+                    name: "Mug Inspirador",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 37900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+3",
+                    description: "Sueña en grande, actúa con propósito"
+                },
+                {
+                    id: 60,
+                    name: "Mug Confiable",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 42900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+4",
+                    description: "Tu palabra es tu compromiso"
+                },
+                {
+                    id: 61,
+                    name: "Mug Creativo",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 36900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+5",
+                    description: "Las ideas fluyen como el agua"
+                },
+                {
+                    id: 62,
+                    name: "Mug Elegante",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 41900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+6",
+                    description: "La elegancia es una actitud"
+                },
+                {
+                    id: 63,
+                    name: "Mug Moderno",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 38900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+7",
+                    description: "Innovar es creer en lo imposible"
+                },
+                {
+                    id: 64,
+                    name: "Mug Profesional",
+                    category: "Vasos o mugs",
+                    color: "Azul",
+                    price: 44900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+8",
+                    description: "Tu potencial es ilimitado"
+                },
+                
+                // Gorras Rojas
+                {
+                    id: 65,
+                    name: "Gorra Apasionada",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 59900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja",
+                    description: "Lleva tu pasión donde quiera que vayas"
+                },
+                {
+                    id: 66,
+                    name: "Gorra Energética",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 64900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+2",
+                    description: "Tu energía no tiene límites"
+                },
+                {
+                    id: 67,
+                    name: "Gorra Creativa",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 57900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+3",
+                    description: "La creatividad es tu superpoder"
+                },
+                {
+                    id: 68,
+                    name: "Gorra Motivacional",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 62900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+4",
+                    description: "Cada paso cuenta en tu camino"
+                },
+                {
+                    id: 69,
+                    name: "Gorra Inspiradora",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 61900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+5",
+                    description: "Tu actitud define tu altitud"
+                },
+                {
+                    id: 70,
+                    name: "Gorra Moderna",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 66900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+6",
+                    description: "Estilo que rompe esquemas"
+                },
+                {
+                    id: 71,
+                    name: "Gorra Artística",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 58900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+7",
+                    description: "El arte se lleva en la cabeza"
+                },
+                {
+                    id: 72,
+                    name: "Gorra Elegante",
+                    category: "Gorras estampadas",
+                    color: "Rojo",
+                    price: 69900,
+                    image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+8",
+                    description: "Elegancia con actitud"
+                },
+                
+                // Gorras Amarillas
+                {
+                    id: 73,
+                    name: "Gorra Solar",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 59900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla",
+                    description: "Brilla más fuerte que el sol"
+                },
+                {
+                    id: 74,
+                    name: "Gorra Optimista",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 64900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+2",
+                    description: "Cada día es una nueva aventura"
+                },
+                {
+                    id: 75,
+                    name: "Gorra Alegre",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 57900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+3",
+                    description: "La felicidad es contagiosa"
+                },
+                {
+                    id: 76,
+                    name: "Gorra Energética",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 62900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+4",
+                    description: "Tu energía positiva inspira"
+                },
+                {
+                    id: 77,
+                    name: "Gorra Creativa",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 61900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+5",
+                    description: "Deja volar tu imaginación"
+                },
+                {
+                    id: 78,
+                    name: "Gorra Motivacional",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 66900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+6",
+                    description: "Pequeños pasos, grandes logros"
+                },
+                {
+                    id: 79,
+                    name: "Gorra Inspiradora",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 58900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+7",
+                    description: "Brilla con tu propia luz"
+                },
+                {
+                    id: 80,
+                    name: "Gorra Elegante",
+                    category: "Gorras estampadas",
+                    color: "Amarillo",
+                    price: 69900,
+                    image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+8",
+                    description: "Estilo que complementa tu día"
+                },
+                
+                // Gorras Verdes
+                {
+                    id: 81,
+                    name: "Gorra Natural",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 59900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde",
+                    description: "Conecta con tu esencia"
+                },
+                {
+                    id: 82,
+                    name: "Gorra Equilibrada",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 64900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+2",
+                    description: "Encuentra tu centro en el caos"
+                },
+                {
+                    id: 83,
+                    name: "Gorra Renovable",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 57900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+3",
+                    description: "Crecer es un proceso constante"
+                },
+                {
+                    id: 84,
+                    name: "Gorra Armoniosa",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 62900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+4",
+                    description: "La paz comienza contigo"
+                },
+                {
+                    id: 85,
+                    name: "Gorra Sostenible",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 61900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+5",
+                    description: "Cuida tu mundo, empieza por ti"
+                },
+                {
+                    id: 86,
+                    name: "Gorra Tranquila",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 66900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+6",
+                    description: "Respira profundo y sigue adelante"
+                },
+                {
+                    id: 87,
+                    name: "Gorra Fresca",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 58900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+7",
+                    description: "La calma es tu superpoder"
+                },
+                {
+                    id: 88,
+                    name: "Gorra Vital",
+                    category: "Gorras estampadas",
+                    color: "Verde",
+                    price: 69900,
+                    image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+8",
+                    description: "Tu energía cura y transforma"
+                },
+                
+                // Gorras Azules
+                {
+                    id: 89,
+                    name: "Gorra Profunda",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 59900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul",
+                    description: "Explora las profundidades de tu ser"
+                },
+                {
+                    id: 90,
+                    name: "Gorra Serena",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 64900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+2",
+                    description: "La tranquilidad es tu estado natural"
+                },
+                {
+                    id: 91,
+                    name: "Gorra Inspiradora",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 57900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+3",
+                    description: "Sueña en grande, actúa con propósito"
+                },
+                {
+                    id: 92,
+                    name: "Gorra Confiable",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 62900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+4",
+                    description: "Tu palabra es tu compromiso"
+                },
+                {
+                    id: 93,
+                    name: "Gorra Creativa",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 61900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+5",
+                    description: "Las ideas fluyen como el agua"
+                },
+                {
+                    id: 94,
+                    name: "Gorra Elegante",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 66900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+6",
+                    description: "La elegancia es una actitud"
+                },
+                {
+                    id: 95,
+                    name: "Gorra Moderna",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 58900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+7",
+                    description: "Innovar es creer en lo imposible"
+                },
+                {
+                    id: 96,
+                    name: "Gorra Profesional",
+                    category: "Gorras estampadas",
+                    color: "Azul",
+                    price: 69900,
+                    image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+8",
+                    description: "Tu potencial es ilimitado"
+                }
+            ];
+
+            let selectedCategory = 'Camisetas';
+            let selectedColor = 'Todos';
+
+            // Navigation event listeners
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedCategory = this.getAttribute('data-category');
+                    updateProducts();
+                    document.querySelector('.section-title').textContent = selectedCategory;
+                });
+            });
+
+            // Color filter event listeners
+            document.querySelectorAll('.color-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    document.querySelectorAll('.color-button').forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    selectedColor = this.getAttribute('data-color');
+                    updateProducts();
+                });
+            });
+
+            // Function to update products based on filters
+            function updateProducts() {
+                const productsGrid = document.getElementById('products-grid');
+                productsGrid.innerHTML = '';
+
+                const filteredProducts = products.filter(product => {
+                    if (selectedCategory && product.category !== selectedCategory) return false;
+                    if (selectedColor !== 'Todos' && product.color !== selectedColor) return false;
+                    return true;
+                });
+
+                if (filteredProducts.length === 0) {
+                    productsGrid.innerHTML = '<div class="no-products">No hay productos disponibles con este filtro</div>';
+                    return;
+                }
+
+                filteredProducts.forEach(product => {
+                    const productCard = document.createElement('div');
+                    productCard.className = 'product-card';
+                    
+                    productCard.innerHTML = `
+                        <div class="product-image-container">
+                            <img src="${product.image}" alt="${product.name}" class="product-image">
+                        </div>
+                        <div class="product-info">
+                            <h3 class="product-name">${product.name}</h3>
+                            <p class="product-description">"${product.description}"</p>
+                            <div class="product-footer">
+                                <span class="product-price">$${product.price.toLocaleString('es-CO')}</span>
+                                <button class="add-to-cart" data-id="${product.id}">Agregar al carrito</button>
+                            </div>
+                        </div>
+                    `;
+                    
+                    productsGrid.appendChild(productCard);
+                });
+
+                // Add to cart event listeners
+                document.querySelectorAll('.add-to-cart').forEach(button => {
+                    button.addEventListener('click', function() {
+                        const productId = parseInt(this.getAttribute('data-id'));
+                        const product = products.find(p => p.id === productId);
+                        alert(`${product.name} agregado al carrito`);
+                    });
+                });
+            }
+
+            // Initial load
+            updateProducts();
+        });
+    </script>
+</body>
+</html>
+```
