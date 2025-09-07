@@ -1,4 +1,4 @@
-```html
+<```html
 <!DOCTYPE html>
 <html lang="es">
 <head>
@@ -419,6 +419,110 @@
                 font-size: 2.5rem;
             }
         }
+        
+        /* Modal Styles */
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0, 0, 0, 0.7);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1;
+            visibility: visible;
+        }
+        .modal {
+            background-color: white;
+            border-radius: 1rem;
+            max-width: 90%;
+            max-height: 90vh;
+            overflow-y: auto;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            padding: 2rem;
+            position: relative;
+            width: 90%;
+            max-width: 800px;
+        }
+        .modal-overlay.active .modal {
+            transform: translateY(0);
+        }
+        .modal-close {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s;
+        }
+        .modal-close:hover {
+            color: #1f2937;
+        }
+        .modal-image {
+            width: 100%;
+            max-height: 300px;
+            object-fit: contain;
+            border-radius: 0.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .modal-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+        }
+        .modal-description {
+            color: #6b7280;
+            margin-bottom: 1.5rem;
+            line-height: 1.6;
+        }
+        .modal-price {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1.5rem;
+        }
+        .modal-buttons {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+        .modal-button {
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 0.875rem;
+        }
+        .modal-add-to-cart {
+            background-color: black;
+            color: white;
+        }
+        .modal-add-to-cart:hover {
+            background-color: #374151;
+        }
+        .modal-buy-now {
+            background-color: #ef4444;
+            color: white;
+        }
+        .modal-buy-now:hover {
+            background-color: #dc2626;
+        }
     </style>
 </head>
 <body>
@@ -523,6 +627,22 @@
             </div>
         </div>
     </footer>
+    
+    <!-- Modal for Product Details -->
+    <div class="modal-overlay" id="product-modal">
+        <div class="modal">
+            <button class="modal-close" id="modal-close">&times;</button>
+            <img src="" alt="" class="modal-image" id="modal-image">
+            <h3 class="modal-title" id="modal-title"></h3>
+            <div class="modal-price" id="modal-price"></div>
+            <p class="modal-description" id="modal-description"></p>
+            <div class="modal-buttons">
+                <button class="modal-button modal-add-to-cart" id="modal-add-to-cart">Agregar al carrito</button>
+                <button class="modal-button modal-buy-now" id="modal-buy-now">Comprar</button>
+            </div>
+        </div>
+    </div>
+    
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const products = [
@@ -534,7 +654,8 @@
                     color: "Rojo",
                     price: 79900,
                     image: "A1.jpg",
-                    description: "Rompe las reglas, no los corazones"
+                    description: "Rompe las reglas, no los corazones",
+                    detailedDescription: "Esta camiseta abstracta es perfecta para quienes buscan expresar su individualidad. Con un diseño único y atrevido, está confeccionada con algodón 100% orgánico de alta calidad que garantiza comodidad durante todo el día. Ideal para cualquier ocasión, desde eventos casuales hasta salidas con amigos. Su estampado resistente al lavado mantiene su vibrante color durante mucho tiempo."
                 },
                 {
                     id: 2,
@@ -543,7 +664,8 @@
                     color: "Rojo",
                     price: 84900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+2",
-                    description: "Tu pasión es tu superpoder"
+                    description: "Tu pasión es tu superpoder",
+                    detailedDescription: "Lleva contigo un mensaje de motivación con esta camiseta inspiracional. Diseñada para recordarte tu potencial cada vez que la uses. Fabricada con materiales transpirables que se adaptan a tu cuerpo, ofreciendo máxima comodidad. El estampado ha sido cuidadosamente seleccionado para inspirar y motivar, perfecto para quienes buscan un toque de positividad en su día a día."
                 },
                 {
                     id: 3,
@@ -552,7 +674,8 @@
                     color: "Rojo",
                     price: 74900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+3",
-                    description: "Arde con tu propia llama"
+                    description: "Arde con tu propia llama",
+                    detailedDescription: "Expresa tu lado más creativo con esta camiseta que celebra la originalidad. Su diseño único captura la esencia de la pasión y la creatividad. Confeccionada con una mezcla de algodón y poliéster que proporciona durabilidad y suavidad. El corte moderno se adapta a cualquier tipo de cuerpo, haciendo que te sientas cómodo y con estilo donde quiera que vayas."
                 },
                 {
                     id: 4,
@@ -561,7 +684,8 @@
                     color: "Rojo",
                     price: 89900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+4",
-                    description: "La vida es demasiado corta para ser aburrida"
+                    description: "La vida es demasiado corta para ser aburrida",
+                    detailedDescription: "Haz una declaración de estilo con esta camiseta moderna que desafía las convenciones. Su diseño contemporáneo y colores vibrantes te harán destacar en cualquier multitud. Fabricada con tecnología de secado rápido y protección UV, es perfecta tanto para el día a día como para actividades al aire libre. La calidad premium garantiza que esta prenda será tu favorita por mucho tiempo."
                 },
                 {
                     id: 5,
@@ -570,7 +694,8 @@
                     color: "Rojo",
                     price: 77900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+5",
-                    description: "Hazlo con pasión o no lo hagas"
+                    description: "Hazlo con pasión o no lo hagas",
+                    detailedDescription: "Captura la esencia del estilo urbano con esta camiseta diseñada para los amantes de la ciudad. Su diseño audaz y gráfico refleja la energía de las calles. Confeccionada con materiales resistentes que mantienen su forma después de múltiples lavados. El ajuste relajado ofrece comodidad sin sacrificar el estilo, perfecto para explorar la ciudad con actitud."
                 },
                 {
                     id: 6,
@@ -579,7 +704,8 @@
                     color: "Rojo",
                     price: 82900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+6",
-                    description: "El arte es la mentira que nos permite reconocer la verdad"
+                    description: "El arte es la mentira que nos permite reconocer la verdad",
+                    detailedDescription: "Lleva el arte contigo donde quiera que vayas con esta camiseta que celebra la expresión creativa. Cada detalle del diseño ha sido cuidadosamente elaborado por artistas locales, haciendo de cada pieza una obra única. Fabricada con algodón orgánico certificado, suave al tacto y respetuoso con el medio ambiente. Una prenda que no solo vistes, sino que también cuentas su historia."
                 },
                 {
                     id: 7,
@@ -588,7 +714,8 @@
                     color: "Rojo",
                     price: 76900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+7",
-                    description: "Menos es más, pero rojo es todo"
+                    description: "Menos es más, pero rojo es todo",
+                    detailedDescription: "La elegancia de la simplicidad encuentra su máxima expresión en esta camiseta minimalista. Con un diseño limpio y sofisticado, es perfecta para quienes aprecian la estética discreta pero impactante. Confeccionada con tejidos de alta calidad que garantizan durabilidad y comodidad. Su corte preciso se adapta perfectamente a tu silueta, creando un look pulido y moderno para cualquier ocasión."
                 },
                 {
                     id: 8,
@@ -597,7 +724,8 @@
                     color: "Rojo",
                     price: 91900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Camiseta+Roja+8",
-                    description: "Viste tu actitud, no solo tu cuerpo"
+                    description: "Viste tu actitud, no solo tu cuerpo",
+                    detailedDescription: "Eleva tu guardarropa con esta camiseta elegante que combina estilo y actitud. Diseñada para quienes no temen expresar quiénes son a través de su vestimenta. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. Los detalles sutiles en el diseño añaden un toque de sofisticación que la hace perfecta tanto para ocasiones casuales como para eventos más formales."
                 },
                 // Camisetas Amarillas
                 {
@@ -607,7 +735,8 @@
                     color: "Amarillo",
                     price: 79900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla",
-                    description: "Brilla como el sol que llevas dentro"
+                    description: "Brilla como el sol que llevas dentro",
+                    detailedDescription: "Ilumina tu día con esta camiseta solar de vibrante color amarillo. Su diseño radiante captura la energía positiva del sol, perfecto para empezar el día con buen ánimo. Confeccionada con algodón 100% orgánico que permite una transpiración óptima. El estampado resistente al lavado mantiene su brillo y vivacidad, asegurando que sigas brillando temporada tras temporada."
                 },
                 {
                     id: 10,
@@ -616,7 +745,8 @@
                     color: "Amarillo",
                     price: 84900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+2",
-                    description: "Cada día es una nueva oportunidad"
+                    description: "Cada día es una nueva oportunidad",
+                    detailedDescription: "Comienza cada mañana con una actitud positiva gracias a esta camiseta optimista. Su mensaje inspirador te recordará que cada día trae nuevas posibilidades. Fabricada con materiales suaves y transpirables que te mantendrán cómodo durante todo el día. El corte moderno se adapta a cualquier tipo de cuerpo, haciendo que te sientas bien contigo mismo mientras inspiras a otros."
                 },
                 {
                     id: 11,
@@ -625,7 +755,8 @@
                     color: "Amarillo",
                     price: 74900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+3",
-                    description: "Tu energía cambia el mundo"
+                    description: "Tu energía cambia el mundo",
+                    detailedDescription: "Carga tu día con energía positiva con esta camiseta vibrante. Diseñada para quienes creen en el poder de la energía personal para transformar el entorno. Confeccionada con una mezcla de algodón y poliéster que ofrece durabilidad y comodidad. Su color brillante y diseño dinámico te harán destacar, inspirando a otros con tu presencia vibrante."
                 },
                 {
                     id: 12,
@@ -634,7 +765,8 @@
                     color: "Amarillo",
                     price: 89900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+4",
-                    description: "La felicidad es una elección diaria"
+                    description: "La felicidad es una elección diaria",
+                    detailedDescription: "Elige la alegría cada día con esta camiseta que celebra la felicidad. Su diseño luminoso y mensaje positivo te recordarán que la felicidad es una decisión que puedes tomar en cualquier momento. Fabricada con materiales de alta calidad que garantizan comodidad y durabilidad. Perfecta para llevar contigo una actitud positiva donde quiera que vayas, contagiando alegría a quienes te rodean."
                 },
                 {
                     id: 13,
@@ -643,7 +775,8 @@
                     color: "Amarillo",
                     price: 77900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+5",
-                    description: "Tu imaginación no tiene límites"
+                    description: "Tu imaginación no tiene límites",
+                    detailedDescription: "Libera tu imaginación con esta camiseta creativa que celebra el poder ilimitado de la mente. Su diseño único estimula la creatividad y la innovación. Confeccionada con algodón orgánico suave que te permite moverte libremente mientras das vida a tus ideas. El estampado vibrante mantiene su color después de múltiples lavados, simbolizando la permanencia de tu creatividad."
                 },
                 {
                     id: 14,
@@ -652,7 +785,8 @@
                     color: "Amarillo",
                     price: 82900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+6",
-                    description: "Convierte tus sueños en planes"
+                    description: "Convierte tus sueños en planes",
+                    detailedDescription: "Transforma tus aspiraciones en realidad con esta camiseta motivacional. Su mensaje inspirador te recordará que los sueños se convierten en logros a través de la acción. Fabricada con materiales transpirables que te mantendrán cómodo mientras trabajas hacia tus metas. El diseño moderno y el color vibrante te darán ese impulso extra que necesitas para perseguir tus objetivos con determinación."
                 },
                 {
                     id: 15,
@@ -661,7 +795,8 @@
                     color: "Amarillo",
                     price: 76900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+7",
-                    description: "La creatividad es la inteligencia divirtiéndose"
+                    description: "La creatividad es la inteligencia divirtiéndose",
+                    detailedDescription: "Celebra la diversión de la creatividad con esta camiseta moderna. Su diseño juguetivo y color vibrante capturan la esencia de la innovación lúdica. Confeccionada con una mezcla de materiales que ofrece comodidad y durabilidad. El corte contemporáneo se adapta perfectamente a tu cuerpo, permitiéndote moverte con libertad mientras expresas tu lado más creativo y divertido."
                 },
                 {
                     id: 16,
@@ -670,7 +805,8 @@
                     color: "Amarillo",
                     price: 91900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Camiseta+Amarilla+8",
-                    description: "Sé la luz en la habitación"
+                    description: "Sé la luz en la habitación",
+                    detailedDescription: "Ilumina cualquier espacio con esta camiseta elegante de color amarillo radiante. Diseñada para quienes no temen ser el centro de atención por su estilo y actitud. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. Los detalles sutiles en el diseño añaden un toque de sofisticación, haciendo que esta prenda sea perfecta para ocasiones especiales o simplemente para brillar en tu día a día."
                 },
                 // Camisetas Verdes
                 {
@@ -680,7 +816,8 @@
                     color: "Verde",
                     price: 79900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde",
-                    description: "Conecta con tu esencia"
+                    description: "Conecta con tu esencia",
+                    detailedDescription: "Encuentra tu equilibrio interior con esta camiseta natural que celebra la conexión con uno mismo. Su tono verde sereno evoca la tranquilidad de la naturaleza, perfecto para momentos de introspección y paz. Confeccionada con algodón orgánico certificado, suave al tacto y respetuoso con el medio ambiente. El diseño minimalista te permite conectar con tu esencia sin distracciones."
                 },
                 {
                     id: 18,
@@ -689,7 +826,8 @@
                     color: "Verde",
                     price: 84900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+2",
-                    description: "Encuentra tu centro en el caos"
+                    description: "Encuentra tu centro en el caos",
+                    detailedDescription: "Mantén tu equilibrio en medio del ajetreo diario con esta camiseta equilibrada. Su mensaje sereno te recordará encontrar tu centro incluso en los momentos más caóticos. Fabricada con materiales transpirables que te mantendrán cómodo durante todo el día. El corte relajado ofrece libertad de movimiento, permitiéndote fluir con la vida mientras mantienes tu paz interior."
                 },
                 {
                     id: 19,
@@ -698,7 +836,8 @@
                     color: "Verde",
                     price: 74900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+3",
-                    description: "Crecer es un proceso constante"
+                    description: "Crecer es un proceso constante",
+                    detailedDescription: "Celebra tu evolución personal con esta camiseta renovable que simboliza el crecimiento continuo. Su diseño inspirador te recordará que cada experiencia, buena o mala, contribuye a tu desarrollo. Confeccionada con materiales sostenibles que reflejan el compromiso con el crecimiento personal y ambiental. El color verde vibrante representa la vitalidad y la renovación constante de la vida."
                 },
                 {
                     id: 20,
@@ -707,7 +846,8 @@
                     color: "Verde",
                     price: 89900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+4",
-                    description: "La paz comienza contigo"
+                    description: "La paz comienza contigo",
+                    detailedDescription: "Cultiva la paz interior y exterior con esta camiseta armoniosa. Su mensaje tranquilizador te recordará que la paz mundial comienza con la paz personal. Fabricada con algodón orgánico suave que te envuelve en comodidad mientras promueves la armonía. El diseño sereno y el color calmante te ayudarán a mantener la calma en cualquier situación, siendo un recordatorio constante de tu compromiso con la paz."
                 },
                 {
                     id: 21,
@@ -716,7 +856,8 @@
                     color: "Verde",
                     price: 77900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+5",
-                    description: "Cuida tu mundo, empieza por ti"
+                    description: "Cuida tu mundo, empieza por ti",
+                    detailedDescription: "Haz una declaración ecológica con esta camiseta sostenible que promueve la responsabilidad ambiental. Cada prenda está confeccionada con materiales reciclados y procesos de producción respetuosos con el medio ambiente. Su mensaje inspirador te recordará que los cambios más significativos comienzan con acciones individuales. El diseño moderno y el color vibrante demuestran que la sostenibilidad puede ser tanto ética como estilosa."
                 },
                 {
                     id: 22,
@@ -725,7 +866,8 @@
                     color: "Verde",
                     price: 82900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+6",
-                    description: "Respira profundo y sigue adelante"
+                    description: "Respira profundo y sigue adelante",
+                    detailedDescription: "Encuentra tu calma en medio de la tormenta con esta camiseta tranquila. Su mensaje sereno te recordará la importancia de pausar, respirar y continuar con renovada energía. Fabricada con materiales suaves y transpirables que te permitirán moverte con libertad mientras mantienes tu centro. El tono verde apacible y el diseño minimalista crean una prenda que promueve la serenidad en tu vida diaria."
                 },
                 {
                     id: 23,
@@ -734,7 +876,8 @@
                     color: "Verde",
                     price: 76900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+7",
-                    description: "La calma es tu superpoder"
+                    description: "La calma es tu superpoder",
+                    detailedDescription: "Descubre el poder de la serenidad con esta camiseta fresca que celebra la calma como una fuerza. En un mundo acelerado, esta prenda te recordará que la verdadera fortaleza a menudo se encuentra en la quietud. Confeccionada con materiales ligeros y transpirables que te mantendrán fresco y cómodo. El diseño elegante y el color relajante hacen de esta camiseta un refugio portátil de paz donde quiera que vayas."
                 },
                 {
                     id: 24,
@@ -743,7 +886,8 @@
                     color: "Verde",
                     price: 91900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Camiseta+Verde+8",
-                    description: "Tu energía cura y transforma"
+                    description: "Tu energía cura y transforma",
+                    detailedDescription: "Canaliza tu energía vital con esta camiseta que celebra el poder transformador de tu presencia. Su mensaje inspirador te recordará que tu energía tiene el poder de sanar y cambiar positivamente tu entorno. Fabricada con materiales de alta calidad que te permitirán moverte con libertad mientras irradias tu energía positiva. El color verde vibrante simboliza la vida, el crecimiento y la renovación constante."
                 },
                 // Camisetas Azules
                 {
@@ -753,7 +897,8 @@
                     color: "Azul",
                     price: 79900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul",
-                    description: "Explora las profundidades de tu ser"
+                    description: "Explora las profundidades de tu ser",
+                    detailedDescription: "Sumérgete en tu interior con esta camiseta profunda que invita a la introspección y el autoconocimiento. Su tono azul evoca la profundidad del océano, simbolizando la riqueza de tu mundo interior. Confeccionada con algodón orgánico suave que te envuelve en comodidad mientras exploras tus pensamientos y emociones. El diseño minimalista te permite concentrarte en lo esencial: tu conexión contigo mismo."
                 },
                 {
                     id: 26,
@@ -762,7 +907,8 @@
                     color: "Azul",
                     price: 84900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+2",
-                    description: "La tranquilidad es tu estado natural"
+                    description: "La tranquilidad es tu estado natural",
+                    detailedDescription: "Recupera tu estado de serenidad natural con esta camiseta que celebra la paz interior. Su mensaje calmante te recordará que, más allá del estrés diario, tu esencia es tranquila y equilibrada. Fabricada con materiales transpirables que te mantendrán cómodo durante todo el día. El corte relajado y el color azul sereno crean una prenda que te ayudará a mantener la calma en cualquier situación."
                 },
                 {
                     id: 27,
@@ -771,7 +917,8 @@
                     color: "Azul",
                     price: 74900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+3",
-                    description: "Sueña en grande, actúa con propósito"
+                    description: "Sueña en grande, actúa con propósito",
+                    detailedDescription: "Transforma tus sueños en realidad con esta camiseta inspiradora que combina visión y acción. Su mensaje motivador te recordará que los grandes logros comienzan con sueños audaces y se materializan con pasos concretos. Confeccionada con materiales de alta calidad que te permitirán moverte con confianza mientras persigues tus metas. El color azul profundo simboliza la profundidad de tus aspiraciones y la claridad de tu propósito."
                 },
                 {
                     id: 28,
@@ -780,7 +927,8 @@
                     color: "Azul",
                     price: 89900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+4",
-                    description: "Tu palabra es tu compromiso"
+                    description: "Tu palabra es tu compromiso",
+                    detailedDescription: "Demuestra tu integridad con esta camiseta que celebra la importancia de mantener la palabra dada. Su mensaje directo te recordará el valor de la confiabilidad en todas tus interacciones. Fabricada con materiales duraderos que simbolizan la solidez de tus compromisos. El diseño clásico y el color azul profesional hacen de esta prenda una declaración de principios que puedes llevar contigo en cualquier entorno."
                 },
                 {
                     id: 29,
@@ -789,7 +937,8 @@
                     color: "Azul",
                     price: 77900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+5",
-                    description: "Las ideas fluyen como el agua"
+                    description: "Las ideas fluyen como el agua",
+                    detailedDescription: "Libera tu flujo creativo con esta camiseta que celebra la fluidez de las ideas. Su diseño inspirador te recordará que la creatividad, como el agua, encuentra su camino cuando se le permite fluir libremente. Confeccionada con materiales suaves y transpirables que te permitirán moverte sin restricciones mientras das vida a tus ideas. El tono azul evoca la fluidez del agua, simbolizando la naturaleza adaptable y constante de la creatividad."
                 },
                 {
                     id: 30,
@@ -798,7 +947,8 @@
                     color: "Azul",
                     price: 82900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+6",
-                    description: "La elegancia es una actitud, no una prenda"
+                    description: "La elegancia es una actitud, no una prenda",
+                    detailedDescription: "Expresa tu elegancia interior con esta camiseta que trasciende la moda. Su mensaje profundo te recordará que la verdadera elegancia proviene de la actitud, la integridad y la gracia en todas las circunstancias. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. El corte impecable y el color azul sofisticado crean una prenda que realza tu presencia natural, haciendo que te sientas seguro y refinado donde quiera que vayas."
                 },
                 {
                     id: 31,
@@ -807,7 +957,8 @@
                     color: "Azul",
                     price: 76900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+7",
-                    description: "Innovar es creer en lo imposible"
+                    description: "Innovar es creer en lo imposible",
+                    detailedDescription: "Desafía los límites de lo posible con esta camiseta moderna que celebra la innovación audaz. Su mensaje inspirador te recordará que los mayores avances comienzan con la creencia en lo que otros consideran imposible. Confeccionada con materiales de última generación que combinan comodidad y funcionalidad. El diseño contemporáneo y el color azul vibrante te harán destacar como un pensador visionario y un creador de futuro."
                 },
                 {
                     id: 32,
@@ -816,7 +967,8 @@
                     color: "Azul",
                     price: 91900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Camiseta+Azul+8",
-                    description: "Tu potencial es ilimitado"
+                    description: "Tu potencial es ilimitado",
+                    detailedDescription: "Libera todo tu potencial con esta camiseta profesional que celebra tus capacidades infinitas. Su mensaje empoderador te recordará que no hay límites para lo que puedes lograr cuando crees en ti mismo. Fabricada con materiales de alta calidad que proyectan profesionalismo y confianza. El corte impecable y el color azul corporativo crean una prenda versátil que puedes usar tanto en entornos profesionales como casuales, siempre transmitiendo tu compromiso con la excelencia."
                 },
                 // Mugs Rojos
                 {
@@ -826,7 +978,8 @@
                     color: "Rojo",
                     price: 34900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo",
-                    description: "Empieza tu día con fuego"
+                    description: "Empieza tu día con fuego",
+                    detailedDescription: "Enciende tu mañana con este mug apasionado de color rojo vibrante. Perfecto para quienes aman comenzar el día con energía y entusiasmo. Fabricado con cerámica de alta calidad que mantiene tu bebida caliente por más tiempo. Su asa ergonómica ofrece un agarre cómodo, mientras que el esmalte brillante resiste las manchas y el desgaste diario. Un compañero perfecto para tus momentos de inspiración matutina."
                 },
                 {
                     id: 34,
@@ -835,7 +988,8 @@
                     color: "Rojo",
                     price: 39900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+2",
-                    description: "Tu energía mueve montañas"
+                    description: "Tu energía mueve montañas",
+                    detailedDescription: "Carga tus baterías con este mug energético que celebra tu poder personal. Diseñado para quienes no temen enfrentar desafíos y superar obstáculos. Fabricado con cerámica gruesa que mantiene la temperatura de tu bebida ideal durante más tiempo. El diseño vibrante y el mensaje motivador te darán ese impulso extra que necesitas para conquistar tu día. Perfecto para tu escritorio, gimnasio o cualquier lugar donde necesites un recordatorio de tu fuerza interior."
                 },
                 {
                     id: 35,
@@ -844,7 +998,8 @@
                     color: "Rojo",
                     price: 37900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+3",
-                    description: "La creatividad no tiene límites"
+                    description: "La creatividad no tiene límites",
+                    detailedDescription: "Libera tu imaginación con este mug creativo que rompe las barreras del pensamiento convencional. Su diseño único y color vibrante estimularán tu mente cada vez que lo uses. Fabricado con cerámica de alta calidad apta para microondas y lavavajillas. El interior esmaltado evita la absorción de sabores, manteniendo la pureza de tu bebida. Un compañero perfecto para sesiones de brainstorming, trabajo creativo o simplemente para disfrutar de tu bebida favorita con un toque de inspiración."
                 },
                 {
                     id: 36,
@@ -853,7 +1008,8 @@
                     color: "Rojo",
                     price: 42900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+4",
-                    description: "Cada sorbo te acerca a tus metas"
+                    description: "Cada sorbo te acerca a tus metas",
+                    detailedDescription: "Transforma tu rutina diaria en un viaje hacia el éxito con este mug motivacional. Cada sorbo será un recordatorio de tus objetivos y del progreso que estás haciendo. Fabricado con cerámica premium que mantiene tu bebida a la temperatura perfecta. El diseño elegante y el mensaje inspirador lo convierten en un regalo perfecto para emprendedores, estudiantes o cualquier persona que esté trabajando hacia sus metas. Su base antideslizante asegura estabilidad en cualquier superficie."
                 },
                 {
                     id: 37,
@@ -862,7 +1018,8 @@
                     color: "Rojo",
                     price: 36900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+5",
-                    description: "Tu pasión es contagiosa"
+                    description: "Tu pasión es contagiosa",
+                    detailedDescription: "Comparte tu entusiasmo con el mundo con este mug inspirador que celebra el poder contagioso de la pasión. Su color vibrante y mensaje motivador animarán a quienes te rodean mientras disfrutas de tu bebida favorita. Fabricado con cerámica de alta calidad con acabado brillante que resiste las manchas. El asa amplia ofrece un agarre cómodo, incluso con las manos más grandes. Perfecto para la oficina, el hogar o como regalo para alguien que necesita un impulso de motivación."
                 },
                 {
                     id: 38,
@@ -871,7 +1028,8 @@
                     color: "Rojo",
                     price: 41900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+6",
-                    description: "Diseño que complementa tu estilo"
+                    description: "Diseño que complementa tu estilo",
+                    detailedDescription: "Eleva tu experiencia de bebida con este mug moderno que combina funcionalidad y estilo contemporáneo. Su diseño minimalista con toques de color rojo vibrante se adaptará perfectamente a cualquier entorno, desde oficinas modernas hasta hogares con estilo. Fabricado con cerámica de alta densidad que mantiene la temperatura y resiste impactos. El acabado mate exterior y brillante interior crea un contraste sofisticado que deleitará tus sentidos con cada uso."
                 },
                 {
                     id: 39,
@@ -880,7 +1038,8 @@
                     color: "Rojo",
                     price: 38900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+7",
-                    description: "El arte está en los detalles"
+                    description: "El arte está en los detalles",
+                    detailedDescription: "Celebra la belleza de los detalles con este mug artístico que transforma un objeto cotidiano en una obra de arte funcional. Cada curva, cada tono de rojo, ha sido cuidadosamente diseñado para crear una experiencia visual y táctil única. Fabricado a mano con cerámica de alta calidad, cada pieza es ligeramente diferente, haciendo que tu mug sea verdaderamente único. Perfecto para coleccionistas, amantes del arte o simplemente para quienes aprecian la belleza en los objetos de uso diario."
                 },
                 {
                     id: 40,
@@ -889,7 +1048,8 @@
                     color: "Rojo",
                     price: 44900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Mug+Rojo+8",
-                    description: "Calidad que puedes sentir"
+                    description: "Calidad que puedes sentir",
+                    detailedDescription: "Experimenta la diferencia que hace la calidad con este mug elegante que deleitará todos tus sentidos. Desde el peso perfecto en tu mano hasta la textura suave del esmalte, cada detalle ha sido diseñado para ofrecer una experiencia superior. Fabricado con cerámica premium de alta densidad que mantiene tu bebida caliente sin quemar tus manos. El diseño sofisticado con acentos en rojo vibrante lo convierte en una pieza que realzará cualquier mesa o escritorio. Un regalo perfecto para quienes aprecian lo mejor en la vida."
                 },
                 // Mugs Amarillos
                 {
@@ -899,7 +1059,8 @@
                     color: "Amarillo",
                     price: 34900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo",
-                    description: "Llena tu día de luz"
+                    description: "Llena tu día de luz",
+                    detailedDescription: "Ilumina tus mañanas con este mug solar de vibrante color amarillo. Su tono radiante captura la energía del sol, perfecto para comenzar el día con buen ánimo. Fabricado con cerámica de alta calidad que mantiene tu bebida caliente por más tiempo. El esmalte brillante resiste las manchas y el desgaste diario, manteniendo su brillo temporada tras temporada. Un compañero perfecto para esos días nublados cuando necesitas un poco de sol en tus manos."
                 },
                 {
                     id: 42,
@@ -908,7 +1069,8 @@
                     color: "Amarillo",
                     price: 39900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+2",
-                    description: "Cada mañana es una nueva oportunidad"
+                    description: "Cada mañana es una nueva oportunidad",
+                    detailedDescription: "Comienza cada día con una actitud positiva gracias a este mug optimista. Su mensaje inspirador te recordará que cada amanecer trae nuevas posibilidades. Fabricado con cerámica gruesa que mantiene la temperatura ideal de tu bebida. El asa ergonómica ofrece un agarre cómodo, mientras que el color amarillo vibrante añade un toque de alegría a tu rutina matutina. Perfecto para tu mesa de trabajo, cocina o como regalo para alguien que necesita un impulso de positividad."
                 },
                 {
                     id: 43,
@@ -917,7 +1079,8 @@
                     color: "Amarillo",
                     price: 37900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+3",
-                    description: "La felicidad está en las pequeñas cosas"
+                    description: "La felicidad está en las pequeñas cosas",
+                    detailedDescription: "Encuentra la alegría en los momentos cotidianos con este mug alegre que celebra las pequeñas maravillas de la vida. Su color amarillo brillante y diseño juguetivo te recordarán apreciar las cosas simples que hacen la vida maravillosa. Fabricado con cerámica de alta calidad apta para microondas y lavavajillas. El interior esmaltado evita la absorción de sabores, manteniendo la pureza de tu bebida. Un compañero perfecto para esos momentos de pausa que te permiten recargar energías y apreciar la vida."
                 },
                 {
                     id: 44,
@@ -926,7 +1089,8 @@
                     color: "Amarillo",
                     price: 42900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+4",
-                    description: "Tu energía positiva cambia todo"
+                    description: "Tu energía positiva cambia todo",
+                    detailedDescription: "Carga tu día con energía positiva con este mug que celebra el poder transformador de tu actitud. Su color vibrante y mensaje motivador te darán ese impulso extra que necesitas para enfrentar cualquier desafío. Fabricado con cerámica premium que mantiene tu bebida a la temperatura perfecta. El diseño moderno y la base antideslizante lo convierten en un compañero confiable para tu escritorio, cocina o cualquier lugar donde necesites un recordatorio de tu poder personal."
                 },
                 {
                     id: 45,
@@ -935,7 +1099,8 @@
                     color: "Amarillo",
                     price: 36900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+5",
-                    description: "Deja volar tu imaginación"
+                    description: "Deja volar tu imaginación",
+                    detailedDescription: "Estimula tu creatividad con este mug que invita a pensar fuera de lo convencional. Su color amarillo brillante, asociado con la innovación y la imaginación, te inspirará a explorar nuevas ideas con cada sorbo. Fabricado con cerámica de alta calidad con acabado brillante que resiste las manchas. El asa amplia ofrece un agarre cómodo, incluso durante largas sesiones de trabajo creativo. Perfecto para artistas, escritores, diseñadores o cualquier persona que busque un toque de inspiración en su día a día."
                 },
                 {
                     id: 46,
@@ -944,7 +1109,8 @@
                     color: "Amarillo",
                     price: 41900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+6",
-                    description: "Pequeños pasos, grandes logros"
+                    description: "Pequeños pasos, grandes logros",
+                    detailedDescription: "Celebra tu progreso con este mug motivacional que te recuerda que los grandes logros comienzan con pequeñas acciones. Su mensaje inspirador te animará a mantener el rumbo, incluso cuando los objetivos parezcan lejanos. Fabricado con cerámica de alta densidad que mantiene la temperatura y resiste impactos. El diseño elegante con acentos en amarillo vibrante lo convierte en una pieza que realzará cualquier espacio mientras te motiva a seguir avanzando hacia tus metas."
                 },
                 {
                     id: 47,
@@ -953,7 +1119,8 @@
                     color: "Amarillo",
                     price: 38900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+7",
-                    description: "Brilla con tu propia luz"
+                    description: "Brilla con tu propia luz",
+                    detailedDescription: "Resplandece con autenticidad con este mug inspirador que celebra tu luz única. Su color amarillo radiante y mensaje empoderador te recordarán que no necesitas compararte con nadie más para brillar. Fabricado a mano con cerámica de alta calidad, cada pieza tiene su propio carácter, al igual que tú. Perfecto para quienes buscan afirmar su individualidad y recordar su valor intrínseco con cada sorbo de su bebida favorita."
                 },
                 {
                     id: 48,
@@ -962,7 +1129,8 @@
                     color: "Amarillo",
                     price: 44900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Mug+Amarillo+8",
-                    description: "Estilo que complementa tu día"
+                    description: "Estilo que complementa tu día",
+                    detailedDescription: "Añade un toque de sofisticación a tu rutina diaria con este mug elegante que combina funcionalidad y estilo. Su diseño contemporáneo con acentos en amarillo vibrante se adaptará perfectamente a cualquier entorno, desde oficinas modernas hasta hogares con gusto refinado. Fabricado con cerámica premium de alta densidad que mantiene tu bebida caliente sin quemar tus manos. El acabado mate exterior y brillante interior crea un contraste sofisticado que deleitará tus sentidos con cada uso."
                 },
                 // Mugs Verdes
                 {
@@ -972,7 +1140,8 @@
                     color: "Verde",
                     price: 34900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde",
-                    description: "Conecta con tu esencia cada mañana"
+                    description: "Conecta con tu esencia cada mañana",
+                    detailedDescription: "Encuentra tu equilibrio interior con este mug natural que celebra la conexión con uno mismo. Su tono verde sereno evoca la tranquilidad de la naturaleza, perfecto para momentos de introspección y paz. Fabricado con cerámica ecológica que refleja el compromiso con el medio ambiente. El esmalte natural resiste las manchas y el desgaste diario, manteniendo su belleza con el tiempo. Un compañero perfecto para esos momentos de pausa que te permiten reconectar con tu esencia."
                 },
                 {
                     id: 50,
@@ -981,7 +1150,8 @@
                     color: "Verde",
                     price: 39900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+2",
-                    description: "Encuentra tu centro en cada sorbo"
+                    description: "Encuentra tu centro en cada sorbo",
+                    detailedDescription: "Mantén tu equilibrio en medio del ajetreo diario con este mug equilibrado. Su mensaje sereno te recordará encontrar tu centro incluso en los momentos más caóticos. Fabricado con cerámica gruesa que mantiene la temperatura ideal de tu bebida. El asa ergonómica ofrece un agarre cómodo, mientras que el color verde calmante añade un toque de serenidad a tu rutina. Perfecto para tu escritorio, mesa de noche o cualquier lugar donde necesites un recordatorio de tu centro interior."
                 },
                 {
                     id: 51,
@@ -990,7 +1160,8 @@
                     color: "Verde",
                     price: 37900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+3",
-                    description: "Crecer es un proceso constante"
+                    description: "Crecer es un proceso constante",
+                    detailedDescription: "Celebra tu evolución personal con este mug renovable que simboliza el crecimiento continuo. Su diseño inspirador te recordará que cada experiencia, buena o mala, contribuye a tu desarrollo. Fabricado con materiales sostenibles que reflejan el compromiso con el crecimiento personal y ambiental. El color verde vibrante representa la vitalidad y la renovación constante de la vida. Perfecto para quienes están en un viaje de autodescubrimiento y mejora continua."
                 },
                 {
                     id: 52,
@@ -999,7 +1170,8 @@
                     color: "Verde",
                     price: 42900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+4",
-                    description: "La paz comienza contigo"
+                    description: "La paz comienza contigo",
+                    detailedDescription: "Cultiva la paz interior y exterior con este mug armonioso. Su mensaje tranquilizador te recordará que la paz mundial comienza con la paz personal. Fabricado con cerámica de alta calidad que te envolverá en comodidad mientras promueves la armonía. El diseño sereno y el color calmante te ayudarán a mantener la calma en cualquier situación, siendo un recordatorio constante de tu compromiso con la paz. Ideal para meditación, lectura o simplemente disfrutar de un momento de tranquilidad."
                 },
                 {
                     id: 53,
@@ -1008,7 +1180,8 @@
                     color: "Verde",
                     price: 36900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+5",
-                    description: "Cuida tu mundo, uno a la vez"
+                    description: "Cuida tu mundo, uno a la vez",
+                    detailedDescription: "Haz una declaración ecológica con este mug sostenible que promueve la responsabilidad ambiental. Cada pieza está fabricada con materiales reciclados y procesos de producción respetuosos con el medio ambiente. Su mensaje inspirador te recordará que los cambios más significativos comienzan con acciones individuales. El diseño moderno y el color vibrante demuestran que la sostenibilidad puede ser tanto ética como estilosa. Perfecto para ecologistas, activistas o simplemente para quienes quieren hacer una diferencia positiva."
                 },
                 {
                     id: 54,
@@ -1017,7 +1190,8 @@
                     color: "Verde",
                     price: 41900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+6",
-                    description: "Respira profundo y disfruta"
+                    description: "Respira profundo y disfruta",
+                    detailedDescription: "Encuentra tu calma en medio de la tormenta con este mug tranquilo. Su mensaje sereno te recordará la importancia de pausar, respirar y continuar con renovada energía. Fabricado con materiales suaves al tacto que te permitirán sostenerlo con comodidad mientras mantienes tu centro. El tono verde apacible y el diseño minimalista crean una pieza que promueve la serenidad en tu vida diaria. Ideal para momentos de reflexión, planificación o simplemente para disfrutar de tu bebida favorita en paz."
                 },
                 {
                     id: 55,
@@ -1026,7 +1200,8 @@
                     color: "Verde",
                     price: 38900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+7",
-                    description: "La calma es tu superpoder"
+                    description: "La calma es tu superpoder",
+                    detailedDescription: "Descubre el poder de la serenidad con este mug fresco que celebra la calma como una fuerza. En un mundo acelerado, esta pieza te recordará que la verdadera fortaleza a menudo se encuentra en la quietud. Fabricado con cerámica ligera que mantiene tu bebida a la temperatura perfecta. El diseño elegante y el color relajante hacen de este mug un refugio portátil de paz donde quiera que vayas. Perfecto para quienes valoran la introspección y la tranquilidad en su vida diaria."
                 },
                 {
                     id: 56,
@@ -1035,7 +1210,8 @@
                     color: "Verde",
                     price: 44900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+8",
-                    description: "Tu energía cura y transforma"
+                    description: "Tu energía cura y transforma",
+                    detailedDescription: "Canaliza tu energía vital con este mug que celebra el poder transformador de tu presencia. Su mensaje inspirador te recordará que tu energía tiene el poder de sanar y cambiar positivamente tu entorno. Fabricado con materiales de alta calidad que simbolizan tu compromiso con la vitalidad y el bienestar. El color verde vibrante simboliza la vida, el crecimiento y la renovación constante. Ideal para terapeutas, sanadores o simplemente para quienes quieren recordar el impacto positivo que pueden tener en el mundo."
                 },
                 // Mugs Azules
                 {
@@ -1045,7 +1221,8 @@
                     color: "Azul",
                     price: 34900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul",
-                    description: "Explora las profundidades de tu ser"
+                    description: "Explora las profundidades de tu ser",
+                    detailedDescription: "Sumérgete en tu interior con este mug profundo que invita a la introspección y el autoconocimiento. Su tono azul evoca la profundidad del océano, simbolizando la riqueza de tu mundo interior. Fabricado con cerámica de alta calidad que mantiene tu bebida caliente por más tiempo. El esmalte brillante resiste las manchas y el desgaste diario, manteniendo su belleza con el tiempo. Un compañero perfecto para esos momentos de reflexión que te permiten explorar tus pensamientos y emociones más profundos."
                 },
                 {
                     id: 58,
@@ -1054,7 +1231,8 @@
                     color: "Azul",
                     price: 39900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+2",
-                    description: "La tranquilidad es tu estado natural"
+                    description: "La tranquilidad es tu estado natural",
+                    detailedDescription: "Recupera tu estado de serenidad natural con este mug sereno que celebra la paz interior. Su mensaje calmante te recordará que, más allá del estrés diario, tu esencia es tranquila y equilibrada. Fabricado con cerámica gruesa que mantiene la temperatura ideal de tu bebida. El asa ergonómica ofrece un agarre cómodo, mientras que el color azul sereno añade un toque de calma a tu rutina. Perfecto para tu escritorio, mesa de noche o cualquier lugar donde necesites un recordatorio de tu centro interior."
                 },
                 {
                     id: 59,
@@ -1063,7 +1241,8 @@
                     color: "Azul",
                     price: 37900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+3",
-                    description: "Sueña en grande, actúa con propósito"
+                    description: "Sueña en grande, actúa con propósito",
+                    detailedDescription: "Transforma tus sueños en realidad con este mug inspirador que combina visión y acción. Su mensaje motivador te recordará que los grandes logros comienzan con sueños audaces y se materializan con pasos concretos. Fabricado con materiales de alta calidad que te permitirán sostenerlo con confianza mientras persigues tus metas. El color azul profundo simboliza la profundidad de tus aspiraciones y la claridad de tu propósito. Ideal para emprendedores, soñadores y realizadores."
                 },
                 {
                     id: 60,
@@ -1072,7 +1251,8 @@
                     color: "Azul",
                     price: 42900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+4",
-                    description: "Tu palabra es tu compromiso"
+                    description: "Tu palabra es tu compromiso",
+                    detailedDescription: "Demuestra tu integridad con este mug que celebra la importancia de mantener la palabra dada. Su mensaje directo te recordará el valor de la confiabilidad en todas tus interacciones. Fabricado con cerámica duradera que simboliza la solidez de tus compromisos. El diseño clásico y el color azul profesional hacen de esta pieza una declaración de principios que puedes llevar contigo en cualquier entorno. Perfecto para líderes, profesionales y cualquier persona que valore la integridad."
                 },
                 {
                     id: 61,
@@ -1081,7 +1261,8 @@
                     color: "Azul",
                     price: 36900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+5",
-                    description: "Las ideas fluyen como el agua"
+                    description: "Las ideas fluyen como el agua",
+                    detailedDescription: "Libera tu flujo creativo con este mug que celebra la fluidez de las ideas. Su diseño inspirador te recordará que la creatividad, como el agua, encuentra su camino cuando se le permite fluir libremente. Fabricado con cerámica suave al tacto que te permitirá sostenerlo con comodidad mientras das vida a tus ideas. El tono azul evoca la fluidez del agua, simbolizando la naturaleza adaptable y constante de la creatividad. Ideal para artistas, escritores y pensadores innovadores."
                 },
                 {
                     id: 62,
@@ -1090,7 +1271,8 @@
                     color: "Azul",
                     price: 41900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+6",
-                    description: "La elegancia es una actitud"
+                    description: "La elegancia es una actitud",
+                    detailedDescription: "Expresa tu elegancia interior con este mug que trasciende la moda. Su mensaje profundo te recordará que la verdadera elegancia proviene de la actitud, la integridad y la gracia en todas las circunstancias. Fabricado con materiales premium que ofrecen una sensación de lujo al tacto. El diseño impecable y el color azul sofisticado crean una pieza que realza tu presencia natural, haciendo que te sientas seguro y refinado donde quiera que vayas. Perfecto para ocasiones especiales o para elevar tu rutina diaria."
                 },
                 {
                     id: 63,
@@ -1099,7 +1281,8 @@
                     color: "Azul",
                     price: 38900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+7",
-                    description: "Innovar es creer en lo imposible"
+                    description: "Innovar es creer en lo imposible",
+                    detailedDescription: "Desafía los límites de lo posible con este mug moderno que celebra la innovación audaz. Su mensaje inspirador te recordará que los mayores avances comienzan con la creencia en lo que otros consideran imposible. Fabricado con materiales de última generación que combinan funcionalidad y estilo contemporáneo. El diseño vanguardista y el color azul vibrante te harán destacar como un pensador visionario y un creador de futuro. Ideal para innovadores, emprendedores y soñadores audaces."
                 },
                 {
                     id: 64,
@@ -1108,7 +1291,8 @@
                     color: "Azul",
                     price: 44900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Mug+Azul+8",
-                    description: "Tu potencial es ilimitado"
+                    description: "Tu potencial es ilimitado",
+                    detailedDescription: "Libera todo tu potencial con este mug profesional que celebra tus capacidades infinitas. Su mensaje empoderador te recordará que no hay límites para lo que puedes lograr cuando crees en ti mismo. Fabricado con cerámica de alta calidad que proyecta profesionalismo y confianza. El diseño impecable y el color azul corporativo crean una pieza versátil que puedes usar tanto en entornos profesionales como casuales, siempre transmitiendo tu compromiso con la excelencia. Perfecto para ejecutivos, profesionales ambiciosos y líderes en formación."
                 },
                 // Gorras Rojas
                 {
@@ -1118,7 +1302,8 @@
                     color: "Rojo",
                     price: 59900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja",
-                    description: "Lleva tu pasión donde quiera que vayas"
+                    description: "Lleva tu pasión donde quiera que vayas",
+                    detailedDescription: "Expresa tu fuego interior con esta gorra apasionada de color rojo vibrante. Diseñada para quienes viven con intensidad y no temen mostrarlo. Confeccionada con algodón 100% de alta calidad que garantiza comodidad durante todo el día. El ajuste regulable se adapta perfectamente a cualquier tamaño de cabeza, mientras que el diseño del estampado ha sido cuidadosamente elaborado para resistir el desgaste y los lavados. Perfecta para eventos deportivos, conciertos o simplemente para agregar un toque de pasión a tu look diario."
                 },
                 {
                     id: 66,
@@ -1127,7 +1312,8 @@
                     color: "Rojo",
                     price: 64900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+2",
-                    description: "Tu energía no tiene límites"
+                    description: "Tu energía no tiene límites",
+                    detailedDescription: "Carga tu estilo con energía inagotable con esta gorra que celebra tu vitalidad. Su color rojo vibrante y diseño dinámico te harán destacar en cualquier multitud. Fabricada con una mezcla de algodón y poliéster que ofrece durabilidad y transpirabilidad, perfecta para actividades al aire libre o días calurosos. El cierre trasero ajustable garantiza un ajuste cómodo, mientras que la visera curva proporciona la protección solar adecuada. Ideal para deportistas, aventureros y espíritus inquietos."
                 },
                 {
                     id: 67,
@@ -1136,7 +1322,8 @@
                     color: "Rojo",
                     price: 57900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+3",
-                    description: "La creatividad es tu superpoder"
+                    description: "La creatividad es tu superpoder",
+                    detailedDescription: "Muestra al mundo tu lado más creativo con esta gorra que celebra la imaginación sin límites. Su diseño único y color vibrante capturan la esencia de la innovación y la originalidad. Confeccionada con materiales de alta calidad que combinan comodidad y durabilidad. El ajuste ergonómico se adapta perfectamente a tu cabeza, permitiéndote concentrarte en dar vida a tus ideas sin distracciones. Perfecta para artistas, diseñadores y cualquier persona que quiera expresar su creatividad a través de su estilo."
                 },
                 {
                     id: 68,
@@ -1145,7 +1332,8 @@
                     color: "Rojo",
                     price: 62900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+4",
-                    description: "Cada paso cuenta en tu camino"
+                    description: "Cada paso cuenta en tu camino",
+                    detailedDescription: "Mantén tu motivación en alto con esta gorra que te recuerda el valor de cada pequeño avance. Su mensaje inspirador te acompañará en cada paso de tu viaje, ya sea físico o metafórico. Fabricada con materiales transpirables que te mantendrán fresco durante actividades prolongadas. El diseño moderno con acentos en rojo vibrante te dará ese impulso extra que necesitas para seguir adelante, incluso cuando el camino se ponga difícil. Ideal para corredores, montañistas o cualquier persona que esté trabajando hacia una meta importante."
                 },
                 {
                     id: 69,
@@ -1154,7 +1342,8 @@
                     color: "Rojo",
                     price: 61900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+5",
-                    description: "Tu actitud define tu altitud"
+                    description: "Tu actitud define tu altitud",
+                    detailedDescription: "Eleva tu perspectiva con esta gorra inspiradora que celebra el poder de la actitud positiva. Su mensaje motivador te recordará que tu forma de ver el mundo determina hasta dónde puedes llegar. Confeccionada con algodón orgánico suave que garantiza comodidad durante todo el día. El ajuste regulable y la visera de tamaño óptimo ofrecen protección y estilo en cualquier situación. Perfecta para líderes, emprendedores o simplemente para quienes quieren recordar el impacto que su actitud tiene en su vida diaria."
                 },
                 {
                     id: 70,
@@ -1163,7 +1352,8 @@
                     color: "Rojo",
                     price: 66900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+6",
-                    description: "Estilo que rompe esquemas"
+                    description: "Estilo que rompe esquemas",
+                    detailedDescription: "Desafía las convenciones con esta gorra moderna que combina tendencia y actitud. Su diseño vanguardista y color rojo vibrante te harán destacar en cualquier entorno urbano. Fabricada con materiales de alta calidad que ofrecen durabilidad y comodidad. El corte contemporáneo y los detalles en el estampado han sido cuidadosamente diseñados para crear una pieza que no solo protege del sol, sino que también hace una declaración de estilo. Ideal para fashionistas, trendsetters y quienes no temen expresar su individualidad."
                 },
                 {
                     id: 71,
@@ -1172,7 +1362,8 @@
                     color: "Rojo",
                     price: 58900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+7",
-                    description: "El arte se lleva en la cabeza"
+                    description: "El arte se lleva en la cabeza",
+                    detailedDescription: "Transforma tu cabeza en una galería de arte con esta gorra que celebra la expresión creativa. Cada detalle del diseño ha sido cuidadosamente elaborado por artistas, haciendo de cada pieza una obra única. Confeccionada con algodón orgánico certificado, suave al tacto y respetuoso con el medio ambiente. El ajuste cómodo y la visera de tamaño perfecto la convierten en una compañera ideal para festivales, eventos culturales o simplemente para agregar un toque artístico a tu look diario."
                 },
                 {
                     id: 72,
@@ -1181,7 +1372,8 @@
                     color: "Rojo",
                     price: 69900,
                     image: "https://placehold.co/400x500/f53b57/ffffff?text=Gorra+Roja+8",
-                    description: "Elegancia con actitud"
+                    description: "Elegancia con actitud",
+                    detailedDescription: "Eleva tu estilo con esta gorra elegante que combina sofisticación y actitud. Su diseño refinado con acentos en rojo vibrante crea una pieza que realza cualquier outfit, desde casual hasta semiformal. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. Los detalles sutiles en el estampado añaden un toque de distinción que te hará destacar por tu buen gusto. Perfecta para eventos especiales, salidas elegantes o simplemente para quienes aprecian la calidad y el diseño en cada aspecto de su vestimenta."
                 },
                 // Gorras Amarillas
                 {
@@ -1191,7 +1383,8 @@
                     color: "Amarillo",
                     price: 59900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla",
-                    description: "Brilla más fuerte que el sol"
+                    description: "Brilla más fuerte que el sol",
+                    detailedDescription: "Ilumina cualquier espacio con esta gorra solar de vibrante color amarillo. Diseñada para quienes no temen ser el centro de atención por su energía positiva y estilo radiante. Confeccionada con algodón 100% de alta calidad que garantiza comodidad durante todo el día. El ajuste regulable se adapta perfectamente a cualquier tamaño de cabeza, mientras que la visera curva proporciona la protección solar adecuada. Perfecta para días de playa, festivales al aire libre o simplemente para agregar un toque de alegría a tu look diario."
                 },
                 {
                     id: 74,
@@ -1200,7 +1393,8 @@
                     color: "Amarillo",
                     price: 64900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+2",
-                    description: "Cada día es una nueva aventura"
+                    description: "Cada día es una nueva aventura",
+                    detailedDescription: "Comienza cada mañana con una actitud positiva gracias a esta gorra optimista. Su mensaje inspirador te recordará que cada día trae nuevas posibilidades y oportunidades para la aventura. Fabricada con una mezcla de algodón y poliéster que ofrece durabilidad y transpirabilidad, perfecta para actividades al aire libre. El cierre trasero ajustable garantiza un ajuste cómodo, mientras que el color amarillo vibrante añade un toque de alegría a tu rutina. Ideal para exploradores, viajeros y espíritus aventureros."
                 },
                 {
                     id: 75,
@@ -1209,7 +1403,8 @@
                     color: "Amarillo",
                     price: 57900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+3",
-                    description: "La felicidad es contagiosa"
+                    description: "La felicidad es contagiosa",
+                    detailedDescription: "Contagia alegría a donde quiera que vayas con esta gorra alegre que celebra la felicidad como un estado de ser. Su color amarillo brillante y diseño juguetivo te recordarán apreciar las cosas simples que hacen la vida maravillosa. Confeccionada con materiales de alta calidad que combinan comodidad y durabilidad. El ajuste ergonómico se adapta perfectamente a tu cabeza, permitiéndote disfrutar de tu día con una sonrisa en el rostro. Perfecta para paseos, reuniones con amigos o simplemente para levantar el ánimo en días grises."
                 },
                 {
                     id: 76,
@@ -1218,7 +1413,8 @@
                     color: "Amarillo",
                     price: 62900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+4",
-                    description: "Tu energía positiva inspira"
+                    description: "Tu energía positiva inspira",
+                    detailedDescription: "Carga tu entorno con energía positiva con esta gorra que celebra el poder transformador de tu actitud. Su color vibrante y mensaje motivador te darán ese impulso extra que necesitas para enfrentar cualquier desafío con una sonrisa. Fabricada con materiales transpirables que te mantendrán fresco durante actividades prolongadas. El diseño moderno y los detalles en el estampado la convierten en una pieza que no solo protege del sol, sino que también inspira a quienes te rodean. Ideal para coaches, motivadores o simplemente para quienes quieren ser una fuente de luz positiva."
                 },
                 {
                     id: 77,
@@ -1227,7 +1423,8 @@
                     color: "Amarillo",
                     price: 61900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+5",
-                    description: "Deja volar tu imaginación"
+                    description: "Deja volar tu imaginación",
+                    detailedDescription: "Estimula tu creatividad con esta gorra que invita a pensar fuera de lo convencional. Su color amarillo brillante, asociado con la innovación y la imaginación, te inspirará a explorar nuevas ideas donde quiera que vayas. Confeccionada con algodón orgánico suave que garantiza comodidad durante todo el día. El ajuste regulable y la visera de tamaño óptimo ofrecen protección y estilo en cualquier situación. Perfecta para artistas, escritores, diseñadores o cualquier persona que busque un toque de inspiración en su día a día."
                 },
                 {
                     id: 78,
@@ -1236,7 +1433,8 @@
                     color: "Amarillo",
                     price: 66900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+6",
-                    description: "Pequeños pasos, grandes logros"
+                    description: "Pequeños pasos, grandes logros",
+                    detailedDescription: "Celebra tu progreso con esta gorra motivacional que te recuerda que los grandes logros comienzan con pequeñas acciones. Su mensaje inspirador te animará a mantener el rumbo, incluso cuando los objetivos parezcan lejanos. Fabricada con materiales de alta calidad que ofrecen durabilidad y comodidad. El diseño elegante con acentos en amarillo vibrante la convierte en una pieza que realzará cualquier outfit mientras te motiva a seguir avanzando hacia tus metas. Ideal para atletas, estudiantes o cualquier persona que esté trabajando hacia un objetivo importante."
                 },
                 {
                     id: 79,
@@ -1245,7 +1443,8 @@
                     color: "Amarillo",
                     price: 58900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+7",
-                    description: "Brilla con tu propia luz"
+                    description: "Brilla con tu propia luz",
+                    detailedDescription: "Resplandece con autenticidad con esta gorra inspiradora que celebra tu luz única. Su color amarillo radiante y mensaje empoderador te recordarán que no necesitas compararte con nadie más para brillar. Confeccionada a mano con materiales de alta calidad, cada pieza tiene su propio carácter, al igual que tú. Perfecta para quienes buscan afirmar su individualidad y recordar su valor intrínseco donde quiera que vayan. Ideal para líderes, emprendedores o simplemente para quienes quieren recordar su grandeza interior."
                 },
                 {
                     id: 80,
@@ -1254,7 +1453,8 @@
                     color: "Amarillo",
                     price: 69900,
                     image: "https://placehold.co/400x500/ffdd59/333333?text=Gorra+Amarilla+8",
-                    description: "Estilo que complementa tu día"
+                    description: "Estilo que complementa tu día",
+                    detailedDescription: "Añade un toque de sofisticación a tu look diario con esta gorra elegante que combina funcionalidad y estilo contemporáneo. Su diseño minimalista con acentos en amarillo vibrante se adaptará perfectamente a cualquier entorno, desde eventos casuales hasta salidas con estilo. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. Los detalles sutiles en el estampado y el corte impecable crean una pieza que realza tu presencia natural, haciendo que te sientas seguro y con estilo donde quiera que vayas."
                 },
                 // Gorras Verdes
                 {
@@ -1264,7 +1464,8 @@
                     color: "Verde",
                     price: 59900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde",
-                    description: "Conecta con tu esencia"
+                    description: "Conecta con tu esencia",
+                    detailedDescription: "Encuentra tu equilibrio interior con esta gorra natural que celebra la conexión con uno mismo y con la naturaleza. Su tono verde sereno evoca la tranquilidad del bosque, perfecto para momentos de introspección y paz. Confeccionada con algodón orgánico certificado, suave al tacto y respetuoso con el medio ambiente. El ajuste regulable se adapta perfectamente a cualquier tamaño de cabeza, mientras que la visera proporciona la protección solar adecuada. Perfecta para caminatas, meditación al aire libre o simplemente para llevar un recordatorio de tu conexión con la naturaleza."
                 },
                 {
                     id: 82,
@@ -1273,7 +1474,8 @@
                     color: "Verde",
                     price: 64900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+2",
-                    description: "Encuentra tu centro en el caos"
+                    description: "Encuentra tu centro en el caos",
+                    detailedDescription: "Mantén tu equilibrio en medio del ajetreo diario con esta gorra equilibrada. Su mensaje sereno te recordará encontrar tu centro incluso en los momentos más caóticos. Fabricada con una mezcla de algodón y poliéster que ofrece durabilidad y transpirabilidad. El cierre trasero ajustable garantiza un ajuste cómodo, mientras que el color verde calmante añade un toque de serenidad a tu look. Ideal para la ciudad, el trabajo o cualquier lugar donde necesites un recordatorio de tu centro interior."
                 },
                 {
                     id: 83,
@@ -1282,7 +1484,8 @@
                     color: "Verde",
                     price: 57900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+3",
-                    description: "Crecer es un proceso constante"
+                    description: "Crecer es un proceso constante",
+                    detailedDescription: "Celebra tu evolución personal con esta gorra renovable que simboliza el crecimiento continuo. Su diseño inspirador te recordará que cada experiencia, buena o mala, contribuye a tu desarrollo. Confeccionada con materiales sostenibles que reflejan el compromiso con el crecimiento personal y ambiental. El color verde vibrante representa la vitalidad y la renovación constante de la vida. Perfecta para quienes están en un viaje de autodescubrimiento y mejora continua, ya sea en lo personal o profesional."
                 },
                 {
                     id: 84,
@@ -1291,7 +1494,8 @@
                     color: "Verde",
                     price: 62900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+4",
-                    description: "La paz comienza contigo"
+                    description: "La paz comienza contigo",
+                    detailedDescription: "Cultiva la paz interior y exterior con esta gorra armoniosa. Su mensaje tranquilizador te recordará que la paz mundial comienza con la paz personal. Fabricada con algodón de alta calidad que te envolverá en comodidad mientras promueves la armonía. El diseño sereno y el color calmante te ayudarán a mantener la calma en cualquier situación, siendo un recordatorio constante de tu compromiso con la paz. Ideal para meditación, yoga o simplemente para llevar un mensaje de tranquilidad a tu entorno."
                 },
                 {
                     id: 85,
@@ -1300,7 +1504,8 @@
                     color: "Verde",
                     price: 61900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+5",
-                    description: "Cuida tu mundo, empieza por ti"
+                    description: "Cuida tu mundo, empieza por ti",
+                    detailedDescription: "Haz una declaración ecológica con esta gorra sostenible que promueve la responsabilidad ambiental. Cada pieza está fabricada con materiales reciclados y procesos de producción respetuosos con el medio ambiente. Su mensaje inspirador te recordará que los cambios más significativos comienzan con acciones individuales. El diseño moderno y el color vibrante demuestran que la sostenibilidad puede ser tanto ética como estilosa. Perfecta para ecologistas, activistas o simplemente para quienes quieren hacer una diferencia positiva con su estilo."
                 },
                 {
                     id: 86,
@@ -1309,7 +1514,8 @@
                     color: "Verde",
                     price: 66900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+6",
-                    description: "Respira profundo y sigue adelante"
+                    description: "Respira profundo y sigue adelante",
+                    detailedDescription: "Encuentra tu calma en medio de la tormenta con esta gorra tranquila. Su mensaje sereno te recordará la importancia de pausar, respirar y continuar con renovada energía. Fabricada con materiales suaves al tacto que te permitirán usarla cómodamente durante todo el día. El tono verde apacible y el diseño minimalista crean una pieza que promueve la serenidad en tu vida diaria. Ideal para momentos de estrés, trabajo intenso o simplemente para recordarte la importancia de mantener la calma."
                 },
                 {
                     id: 87,
@@ -1318,7 +1524,8 @@
                     color: "Verde",
                     price: 58900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+7",
-                    description: "La calma es tu superpoder"
+                    description: "La calma es tu superpoder",
+                    detailedDescription: "Descubre el poder de la serenidad con esta gorra fresca que celebra la calma como una fuerza. En un mundo acelerado, esta pieza te recordará que la verdadera fortaleza a menudo se encuentra en la quietud. Fabricada con materiales ligeros y transpirables que te mantendrán fresco y cómodo. El diseño elegante y el color relajante hacen de esta gorra un refugio portátil de paz donde quiera que vayas. Perfecta para quienes valoran la introspección y la tranquilidad en su vida diaria."
                 },
                 {
                     id: 88,
@@ -1327,7 +1534,8 @@
                     color: "Verde",
                     price: 69900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Gorra+Verde+8",
-                    description: "Tu energía cura y transforma"
+                    description: "Tu energía cura y transforma",
+                    detailedDescription: "Canaliza tu energía vital con esta gorra que celebra el poder transformador de tu presencia. Su mensaje inspirador te recordará que tu energía tiene el poder de sanar y cambiar positivamente tu entorno. Fabricada con materiales de alta calidad que simbolizan tu compromiso con la vitalidad y el bienestar. El color verde vibrante simboliza la vida, el crecimiento y la renovación constante. Ideal para terapeutas, sanadores, coaches o simplemente para quienes quieren recordar el impacto positivo que pueden tener en el mundo."
                 },
                 // Gorras Azules
                 {
@@ -1337,7 +1545,8 @@
                     color: "Azul",
                     price: 59900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul",
-                    description: "Explora las profundidades de tu ser"
+                    description: "Explora las profundidades de tu ser",
+                    detailedDescription: "Sumérgete en tu interior con esta gorra profunda que invita a la introspección y el autoconocimiento. Su tono azul evoca la profundidad del océano, simbolizando la riqueza de tu mundo interior. Confeccionada con algodón de alta calidad que garantiza comodidad durante todo el día. El ajuste regulable se adapta perfectamente a cualquier tamaño de cabeza, mientras que la visera proporciona la protección solar adecuada. Perfecta para momentos de reflexión, escritura o simplemente para llevar un recordatorio de tu profundidad interior."
                 },
                 {
                     id: 90,
@@ -1346,7 +1555,8 @@
                     color: "Azul",
                     price: 64900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+2",
-                    description: "La tranquilidad es tu estado natural"
+                    description: "La tranquilidad es tu estado natural",
+                    detailedDescription: "Recupera tu estado de serenidad natural con esta gorra serena que celebra la paz interior. Su mensaje calmante te recordará que, más allá del estrés diario, tu esencia es tranquila y equilibrada. Fabricada con una mezcla de algodón y poliéster que ofrece durabilidad y transpirabilidad. El cierre trasero ajustable garantiza un ajuste cómodo, mientras que el color azul sereno añade un toque de calma a tu look. Ideal para la oficina, paseos tranquilos o cualquier lugar donde necesites un recordatorio de tu centro interior."
                 },
                 {
                     id: 91,
@@ -1355,7 +1565,8 @@
                     color: "Azul",
                     price: 57900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+3",
-                    description: "Sueña en grande, actúa con propósito"
+                    description: "Sueña en grande, actúa con propósito",
+                    detailedDescription: "Transforma tus sueños en realidad con esta gorra inspiradora que combina visión y acción. Su mensaje motivador te recordará que los grandes logros comienzan con sueños audaces y se materializan con pasos concretos. Fabricada con materiales de alta calidad que te permitirán usarla con confianza mientras persigues tus metas. El color azul profundo simboliza la profundidad de tus aspiraciones y la claridad de tu propósito. Ideal para emprendedores, soñadores y realizadores que no temen pensar en grande."
                 },
                 {
                     id: 92,
@@ -1364,7 +1575,8 @@
                     color: "Azul",
                     price: 62900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+4",
-                    description: "Tu palabra es tu compromiso"
+                    description: "Tu palabra es tu compromiso",
+                    detailedDescription: "Demuestra tu integridad con esta gorra que celebra la importancia de mantener la palabra dada. Su mensaje directo te recordará el valor de la confiabilidad en todas tus interacciones. Fabricada con materiales duraderos que simbolizan la solidez de tus compromisos. El diseño clásico y el color azul profesional hacen de esta pieza una declaración de principios que puedes llevar contigo en cualquier entorno. Perfecta para líderes, profesionales y cualquier persona que valore la integridad por encima de todo."
                 },
                 {
                     id: 93,
@@ -1373,7 +1585,8 @@
                     color: "Azul",
                     price: 61900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+5",
-                    description: "Las ideas fluyen como el agua"
+                    description: "Las ideas fluyen como el agua",
+                    detailedDescription: "Libera tu flujo creativo con esta gorra que celebra la fluidez de las ideas. Su diseño inspirador te recordará que la creatividad, como el agua, encuentra su camino cuando se le permite fluir libremente. Fabricada con materiales suaves al tacto que te permitirán usarla cómodamente durante largas sesiones creativas. El tono azul evoca la fluidez del agua, simbolizando la naturaleza adaptable y constante de la creatividad. Ideal para artistas, escritores, diseñadores y pensadores innovadores que valoran la libertad de expresión."
                 },
                 {
                     id: 94,
@@ -1382,7 +1595,8 @@
                     color: "Azul",
                     price: 66900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+6",
-                    description: "La elegancia es una actitud"
+                    description: "La elegancia es una actitud",
+                    detailedDescription: "Expresa tu elegancia interior con esta gorra que trasciende la moda. Su mensaje profundo te recordará que la verdadera elegancia proviene de la actitud, la integridad y la gracia en todas las circunstancias. Fabricada con materiales premium que ofrecen una sensación de lujo al tacto. El diseño impecable y el color azul sofisticado crean una pieza que realza tu presencia natural, haciendo que te sientas seguro y refinado donde quiera que vayas. Perfecta para ocasiones especiales, eventos o simplemente para elevar tu estilo diario con un toque de distinción."
                 },
                 {
                     id: 95,
@@ -1391,7 +1605,8 @@
                     color: "Azul",
                     price: 58900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+7",
-                    description: "Innovar es creer en lo imposible"
+                    description: "Innovar es creer en lo imposible",
+                    detailedDescription: "Desafía los límites de lo posible con esta gorra moderna que celebra la innovación audaz. Su mensaje inspirador te recordará que los mayores avances comienzan con la creencia en lo que otros consideran imposible. Fabricada con materiales de última generación que combinan funcionalidad y estilo contemporáneo. El diseño vanguardista y el color azul vibrante te harán destacar como un pensador visionario y un creador de futuro. Ideal para innovadores, emprendedores tecnológicos y soñadores audaces que no temen romper paradigmas."
                 },
                 {
                     id: 96,
@@ -1400,7 +1615,8 @@
                     color: "Azul",
                     price: 69900,
                     image: "https://placehold.co/400x500/3498db/ffffff?text=Gorra+Azul+8",
-                    description: "Tu potencial es ilimitado"
+                    description: "Tu potencial es ilimitado",
+                    detailedDescription: "Libera todo tu potencial con esta gorra profesional que celebra tus capacidades infinitas. Su mensaje empoderador te recordará que no hay límites para lo que puedes lograr cuando crees en ti mismo. Fabricada con materiales de alta calidad que proyectan profesionalismo y confianza. El diseño impecable y el color azul corporativo crean una pieza versátil que puedes usar tanto en entornos profesionales como casuales, siempre transmitiendo tu compromiso con la excelencia. Perfecta para ejecutivos, profesionales ambiciosos, líderes en formación y cualquier persona que quiera recordar su grandeza interior."
                 }
             ];
             let selectedCategory = 'Camisetas';
@@ -1498,13 +1714,59 @@
                 
                 // Add to cart event listeners
                 document.querySelectorAll('.add-to-cart').forEach(button => {
-                    button.addEventListener('click', function() {
+                    button.addEventListener('click', function(e) {
+                        e.preventDefault();
                         const productId = parseInt(this.getAttribute('data-id'));
                         const product = products.find(p => p.id === productId);
-                        alert(`${product.name} agregado al carrito`);
+                        openProductModal(product);
                     });
                 });
             }
+            
+            // Modal functionality
+            const modal = document.getElementById('product-modal');
+            const modalClose = document.getElementById('modal-close');
+            const modalImage = document.getElementById('modal-image');
+            const modalTitle = document.getElementById('modal-title');
+            const modalPrice = document.getElementById('modal-price');
+            const modalDescription = document.getElementById('modal-description');
+            const modalAddToCart = document.getElementById('modal-add-to-cart');
+            const modalBuyNow = document.getElementById('modal-buy-now');
+            
+            function openProductModal(product) {
+                modalImage.src = product.image;
+                modalImage.alt = product.name;
+                modalTitle.textContent = product.name;
+                modalPrice.textContent = `$${product.price.toLocaleString('es-CO')}`;
+                modalDescription.textContent = product.detailedDescription;
+                
+                modal.classList.add('active');
+                document.body.style.overflow = 'hidden';
+            }
+            
+            function closeProductModal() {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }
+            
+            modalClose.addEventListener('click', closeProductModal);
+            
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeProductModal();
+                }
+            });
+            
+            modalAddToCart.addEventListener('click', function() {
+                const productName = modalTitle.textContent;
+                alert('Producto agregado al carrito');
+                closeProductModal();
+            });
+            
+            modalBuyNow.addEventListener('click', function() {
+                alert('Redirigiendo a compra');
+                closeProductModal();
+            });
             
             // Initial setup
             setupNavListeners();
