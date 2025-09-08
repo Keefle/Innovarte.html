@@ -66,6 +66,37 @@
             border: none;
             cursor: pointer;
         }
+        /* Shopping Cart Button */
+        .cart-button {
+            position: relative;
+            padding: 0.5rem;
+            color: #555;
+            background: none;
+            border: none;
+            cursor: pointer;
+            margin-right: 1rem;
+            display: flex;
+            align-items: center;
+            transition: all 0.3s;
+        }
+        .cart-button:hover {
+            color: black;
+        }
+        .cart-count {
+            position: absolute;
+            top: -5px;
+            right: -5px;
+            background-color: #ef4444;
+            color: white;
+            font-size: 0.75rem;
+            font-weight: bold;
+            border-radius: 50%;
+            width: 18px;
+            height: 18px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
         /* Mobile Menu */
         .mobile-menu {
             display: none;
@@ -516,6 +547,149 @@
         .modal-buy-now:hover {
             background-color: #dc2626;
         }
+        
+        /* Shopping Cart Sidebar */
+        .cart-sidebar {
+            position: fixed;
+            top: 0;
+            right: -400px;
+            width: 400px;
+            height: 100vh;
+            background-color: white;
+            box-shadow: -5px 0 15px rgba(0,0,0,0.1);
+            z-index: 1001;
+            transition: right 0.3s ease;
+            overflow-y: auto;
+        }
+        .cart-sidebar.active {
+            right: 0;
+        }
+        .cart-header {
+            padding: 1.5rem;
+            border-bottom: 1px solid #e5e5e5;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .cart-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+            color: #1f2937;
+        }
+        .cart-close {
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #6b7280;
+            transition: color 0.3s;
+        }
+        .cart-close:hover {
+            color: #1f2937;
+        }
+        .cart-items {
+            padding: 1.5rem;
+        }
+        .cart-item {
+            display: flex;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 1px solid #f3f4f6;
+        }
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border-radius: 0.5rem;
+            margin-right: 1rem;
+        }
+        .cart-item-details {
+            flex: 1;
+        }
+        .cart-item-name {
+            font-weight: 600;
+            color: #1f2937;
+            margin-bottom: 0.5rem;
+        }
+        .cart-item-price {
+            color: #6b7280;
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .quantity-btn {
+            width: 25px;
+            height: 25px;
+            border: 1px solid #e5e5e5;
+            border-radius: 50%;
+            background: none;
+            cursor: pointer;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+        }
+        .quantity-btn:hover {
+            background-color: #f3f4f6;
+        }
+        .quantity-value {
+            font-weight: 500;
+            min-width: 20px;
+            text-align: center;
+        }
+        .remove-item {
+            color: #ef4444;
+            background: none;
+            border: none;
+            cursor: pointer;
+            font-size: 0.875rem;
+            margin-top: 0.5rem;
+            transition: color 0.3s;
+        }
+        .remove-item:hover {
+            color: #dc2626;
+            text-decoration: underline;
+        }
+        .cart-total {
+            padding: 1.5rem;
+            border-top: 1px solid #e5e5e5;
+            font-weight: bold;
+            font-size: 1.125rem;
+            color: #1f2937;
+            display: flex;
+            justify-content: space-between;
+        }
+        .checkout-btn {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        .checkout-btn:hover {
+            background-color: #dc2626;
+        }
+        .empty-cart {
+            padding: 2rem;
+            text-align: center;
+            color: #6b7280;
+        }
+        .empty-cart-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #e5e5e5;
+        }
     </style>
 </head>
 <body>
@@ -527,6 +701,16 @@
                 <a href="#" class="nav-link" data-category="Vasos o mugs">Vasos o mugs</a>
                 <a href="#" class="nav-link" data-category="Gorras estampadas">Gorras estampadas</a>
             </nav>
+            <button class="cart-button" id="cart-button">
+                <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M9 20c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H9z"></path>
+                    <path d="M7 6V4c0-1.1.9-2 2-2h8c1.1 0 2 .9 2 2v2"></path>
+                    <path d="M9 20v2c0 1.1.9 2 2 2h2c1.1 0 2-.9 2-2v-2"></path>
+                    <path d="M12 10v6"></path>
+                    <path d="M9 13h6"></path>
+                </svg>
+                <span class="cart-count" id="cart-count">0</span>
+            </button>
             <button class="mobile-menu-btn" id="mobile-menu-btn">
                 <svg width="24" height="24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                     <path d="M4 6h16M4 12h16M4 18h16"></path>
@@ -543,7 +727,7 @@
     </header>
     <section class="hero">
         <div class="hero-images">
-            <img src="A1.jpg">
+            <img src="A1.jpg" class="hero-image">
         </div>
         <div class="hero-content">
             <h1 class="hero-title">Diseños que inspiran, <br> estilo que te representa</h1>
@@ -633,6 +817,27 @@
                 <button class="modal-button modal-buy-now" id="modal-buy-now">Comprar</button>
             </div>
         </div>
+    </div>
+    
+    <!-- Shopping Cart Sidebar -->
+    <div class="cart-sidebar" id="cart-sidebar">
+        <div class="cart-header">
+            <h2 class="cart-title">Tu carrito</h2>
+            <button class="cart-close" id="cart-close">&times;</button>
+        </div>
+        <div class="cart-items" id="cart-items">
+            <!-- Cart items will be inserted here by JavaScript -->
+            <div class="empty-cart">
+                <div class="empty-cart-icon">🛒</div>
+                <p>Tu carrito está vacío</p>
+                <p>Agrega productos para verlos aquí</p>
+            </div>
+        </div>
+        <div class="cart-total" id="cart-total">
+            <span>Total:</span>
+            <span>$0</span>
+        </div>
+        <button class="checkout-btn" id="checkout-btn">Proceder al pago</button>
     </div>
     
     <script>
@@ -1203,7 +1408,7 @@
                     price: 44900,
                     image: "https://placehold.co/400x500/0fbcf9/ffffff?text=Mug+Verde+8",
                     description: "Tu energía cura y transforma",
-                    detailedDescription: "Canaliza tu energía vital con este mug que celebra el poder transformador de tu presencia. Su mensaje inspirador te recordará que tu energía tiene el poder de sanar y cambiar positivamente tu entorno. Fabricado con materiales de alta calidad que simbolizan tu compromiso con la vitalidad y el bienestar. El color verde vibrante simboliza la vida, el crecimiento y la renovación constante. Ideal para terapeutas, sanadores o simplemente para quienes quieren recordar el impacto positivo que pueden tener en el mundo."
+                    detailedDescription: "Canaliza tu energía vital con este mug que celebra el poder transformador de tu presencia. Su mensaje inspirador te recordará que tu energía tiene el poder de sanar y cambiar positivamente tu entorno. Fabricado con materiales de alta calidad que simbolizan tu compromiso con la vitalidad y el bienestar. El color verde vibrante simboliza la vida, el crecimiento y la renovación constante. Ideal para terapeutas, sanadores, coaches o simplemente para quienes quieren recordar el impacto positivo que pueden tener en el mundo."
                 },
                 // Mugs Azules
                 {
@@ -1612,6 +1817,121 @@
                 }
             ];
             let selectedCategory = 'Camisetas';
+            let cart = [];
+            
+            // Shopping Cart Functionality
+            const cartButton = document.getElementById('cart-button');
+            const cartCount = document.getElementById('cart-count');
+            const cartSidebar = document.getElementById('cart-sidebar');
+            const cartClose = document.getElementById('cart-close');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            const checkoutBtn = document.getElementById('checkout-btn');
+            
+            // Update cart count
+            function updateCartCount() {
+                cartCount.textContent = cart.reduce((total, item) => total + item.quantity, 0);
+            }
+            
+            // Open cart sidebar
+            cartButton.addEventListener('click', function() {
+                cartSidebar.classList.add('active');
+                updateCartDisplay();
+            });
+            
+            // Close cart sidebar
+            cartClose.addEventListener('click', function() {
+                cartSidebar.classList.remove('active');
+            });
+            
+            // Close cart when clicking outside
+            cartSidebar.addEventListener('click', function(e) {
+                if (e.target === cartSidebar) {
+                    cartSidebar.classList.remove('active');
+                }
+            });
+            
+            // Update cart display
+            function updateCartDisplay() {
+                if (cart.length === 0) {
+                    cartItems.innerHTML = `
+                        <div class="empty-cart">
+                            <div class="empty-cart-icon">🛒</div>
+                            <p>Tu carrito está vacío</p>
+                            <p>Agrega productos para verlos aquí</p>
+                        </div>
+                    `;
+                    cartTotal.innerHTML = `<span>Total:</span> <span>$0</span>`;
+                } else {
+                    let cartHTML = '';
+                    let total = 0;
+                    
+                    cart.forEach(item => {
+                        const itemTotal = item.price * item.quantity;
+                        total += itemTotal;
+                        
+                        cartHTML += `
+                            <div class="cart-item">
+                                <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                                <div class="cart-item-details">
+                                    <h4 class="cart-item-name">${item.name}</h4>
+                                    <div class="cart-item-price">$${item.price.toLocaleString('es-CO')}</div>
+                                    <div class="cart-item-quantity">
+                                        <button class="quantity-btn decrease-quantity" data-id="${item.id}">-</button>
+                                        <span class="quantity-value">${item.quantity}</span>
+                                        <button class="quantity-btn increase-quantity" data-id="${item.id}">+</button>
+                                    </div>
+                                    <button class="remove-item" data-id="${item.id}">Eliminar</button>
+                                </div>
+                            </div>
+                        `;
+                    });
+                    
+                    cartItems.innerHTML = cartHTML;
+                    cartTotal.innerHTML = `<span>Total:</span> <span>$${total.toLocaleString('es-CO')}</span>`;
+                    
+                    // Add event listeners for quantity buttons and remove buttons
+                    document.querySelectorAll('.increase-quantity').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const item = cart.find(item => item.id === id);
+                            if (item) {
+                                item.quantity += 1;
+                                updateCartCount();
+                                updateCartDisplay();
+                            }
+                        });
+                    });
+                    
+                    document.querySelectorAll('.decrease-quantity').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const itemIndex = cart.findIndex(item => item.id === id);
+                            if (itemIndex !== -1) {
+                                if (cart[itemIndex].quantity > 1) {
+                                    cart[itemIndex].quantity -= 1;
+                                } else {
+                                    cart.splice(itemIndex, 1);
+                                }
+                                updateCartCount();
+                                updateCartDisplay();
+                            }
+                        });
+                    });
+                    
+                    document.querySelectorAll('.remove-item').forEach(button => {
+                        button.addEventListener('click', function() {
+                            const id = parseInt(this.getAttribute('data-id'));
+                            const itemIndex = cart.findIndex(item => item.id === id);
+                            if (itemIndex !== -1) {
+                                cart.splice(itemIndex, 1);
+                                updateCartCount();
+                                updateCartDisplay();
+                            }
+                        });
+                    });
+                }
+            }
             
             // Mobile menu toggle
             const mobileMenuBtn = document.getElementById('mobile-menu-btn');
@@ -1739,6 +2059,10 @@
                 modalPrice.textContent = `$${product.price.toLocaleString('es-CO')}`;
                 modalDescription.textContent = product.detailedDescription;
                 
+                // Set product id for modal buttons
+                modalAddToCart.setAttribute('data-id', product.id);
+                modalBuyNow.setAttribute('data-id', product.id);
+                
                 modal.classList.add('active');
                 document.body.style.overflow = 'hidden';
             }
@@ -1757,20 +2081,68 @@
             });
             
             modalAddToCart.addEventListener('click', function() {
-                const productName = modalTitle.textContent;
+                const productId = parseInt(this.getAttribute('data-id'));
+                const product = products.find(p => p.id === productId);
+                
+                // Check if product is already in cart
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCartCount();
                 alert('Producto agregado al carrito');
                 closeProductModal();
             });
             
             modalBuyNow.addEventListener('click', function() {
-                alert('Redirigiendo a compra');
+                const productId = parseInt(this.getAttribute('data-id'));
+                const product = products.find(p => p.id === productId);
+                
+                // Add to cart and open cart
+                const existingItem = cart.find(item => item.id === productId);
+                if (existingItem) {
+                    existingItem.quantity += 1;
+                } else {
+                    cart.push({
+                        id: product.id,
+                        name: product.name,
+                        price: product.price,
+                        image: product.image,
+                        quantity: 1
+                    });
+                }
+                
+                updateCartCount();
+                cartSidebar.classList.add('active');
+                updateCartDisplay();
                 closeProductModal();
+            });
+            
+            // Checkout button
+            checkoutBtn.addEventListener('click', function() {
+                if (cart.length === 0) {
+                    alert('Tu carrito está vacío');
+                } else {
+                    alert('Redirigiendo a compra');
+                    // Here you would typically redirect to a checkout page
+                    // window.location.href = '/checkout';
+                }
             });
             
             // Initial setup
             setupNavListeners();
             setupIconListeners();
             updateProducts();
+            updateCartCount();
             
             // Handle window resize for better mobile experience
             window.addEventListener('resize', function() {
