@@ -690,6 +690,94 @@
             margin-bottom: 1rem;
             color: #e5e5e5;
         }
+        
+        /* Checkout Modal */
+        .checkout-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        .form-label {
+            font-weight: 500;
+            color: #1f2937;
+        }
+        .form-input {
+            padding: 0.75rem;
+            border: 1px solid #e5e5e5;
+            border-radius: 0.5rem;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        .form-input:focus {
+            outline: none;
+            border-color: #ef4444;
+        }
+        .payment-methods {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+        @media (max-width: 640px) {
+            .payment-methods {
+                grid-template-columns: 1fr;
+            }
+        }
+        .payment-method {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.75rem;
+            border: 2px solid #e5e5e5;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        .payment-method:hover {
+            border-color: #ef4444;
+        }
+        .payment-method.selected {
+            border-color: #ef4444;
+            background-color: #fef2f2;
+        }
+        .payment-icon {
+            width: 24px;
+            height: 24px;
+            color: #6b7280;
+        }
+        .submit-btn {
+            background-color: #ef4444;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            border-radius: 2rem;
+            border: none;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.3s;
+            margin-top: 1rem;
+            width: 100%;
+        }
+        .submit-btn:hover {
+            background-color: #dc2626;
+        }
+        .form-title {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1f2937;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        .form-subtitle {
+            color: #6b7280;
+            text-align: center;
+            margin-bottom: 1.5rem;
+        }
     </style>
 </head>
 <body>
@@ -838,6 +926,72 @@
             <span>$0</span>
         </div>
         <button class="checkout-btn" id="checkout-btn">Proceder al pago</button>
+    </div>
+    
+    <!-- Checkout Modal -->
+    <div class="modal-overlay" id="checkout-modal">
+        <div class="modal">
+            <button class="modal-close" id="checkout-modal-close">&times;</button>
+            <h2 class="form-title">Información de Pago</h2>
+            <p class="form-subtitle">Completa tus datos para finalizar la compra</p>
+            <form class="checkout-form" id="checkout-form">
+                <div class="form-group">
+                    <label class="form-label" for="full-name">Nombre completo</label>
+                    <input type="text" id="full-name" class="form-input" placeholder="Juan Pérez" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="document">Número de documento</label>
+                    <input type="text" id="document" class="form-input" placeholder="CC, TI, CE, etc." required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="age">Edad</label>
+                    <input type="number" id="age" class="form-input" placeholder="25" min="13" max="120" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="phone">Teléfono</label>
+                    <input type="tel" id="phone" class="form-input" placeholder="+57 300 123 4567" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="email">Correo electrónico</label>
+                    <input type="email" id="email" class="form-input" placeholder="correo@ejemplo.com" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label" for="address">Dirección de entrega</label>
+                    <input type="text" id="address" class="form-input" placeholder="Calle 123 #45-67, Bogotá" required>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">Método de pago</label>
+                    <div class="payment-methods">
+                        <div class="payment-method" data-method="pse">
+                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                            </svg>
+                            <span>PSE</span>
+                        </div>
+                        <div class="payment-method" data-method="nequi">
+                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Nequi</span>
+                        </div>
+                        <div class="payment-method" data-method="efectivo">
+                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                            </svg>
+                            <span>Efectivo</span>
+                        </div>
+                        <div class="payment-method" data-method="contraentrega">
+                            <svg class="payment-icon" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+                            </svg>
+                            <span>Contraentrega</span>
+                        </div>
+                    </div>
+                    <input type="hidden" id="payment-method" required>
+                </div>
+                <button type="submit" class="submit-btn">Finalizar compra</button>
+            </form>
+        </div>
     </div>
     
     <script>
@@ -1827,6 +1981,9 @@
             const cartItems = document.getElementById('cart-items');
             const cartTotal = document.getElementById('cart-total');
             const checkoutBtn = document.getElementById('checkout-btn');
+            const checkoutModal = document.getElementById('checkout-modal');
+            const checkoutModalClose = document.getElementById('checkout-modal-close');
+            const checkoutForm = document.getElementById('checkout-form');
             
             // Update cart count
             function updateCartCount() {
@@ -2132,10 +2289,67 @@
                 if (cart.length === 0) {
                     alert('Tu carrito está vacío');
                 } else {
-                    alert('Redirigiendo a compra');
-                    // Here you would typically redirect to a checkout page
-                    // window.location.href = '/checkout';
+                    checkoutModal.classList.add('active');
+                    document.body.style.overflow = 'hidden';
                 }
+            });
+            
+            // Close checkout modal
+            checkoutModalClose.addEventListener('click', function() {
+                checkoutModal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            });
+            
+            // Close checkout modal when clicking outside
+            checkoutModal.addEventListener('click', function(e) {
+                if (e.target === checkoutModal) {
+                    checkoutModal.classList.remove('active');
+                    document.body.style.overflow = 'auto';
+                }
+            });
+            
+            // Payment method selection
+            document.querySelectorAll('.payment-method').forEach(method => {
+                method.addEventListener('click', function() {
+                    document.querySelectorAll('.payment-method').forEach(m => m.classList.remove('selected'));
+                    this.classList.add('selected');
+                    document.getElementById('payment-method').value = this.getAttribute('data-method');
+                });
+            });
+            
+            // Checkout form submission
+            checkoutForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                // Validate form
+                const fullName = document.getElementById('full-name').value;
+                const documentNumber = document.getElementById('document').value;
+                const age = document.getElementById('age').value;
+                const phone = document.getElementById('phone').value;
+                const email = document.getElementById('email').value;
+                const address = document.getElementById('address').value;
+                const paymentMethod = document.getElementById('payment-method').value;
+                
+                if (!fullName || !documentNumber || !age || !phone || !email || !address || !paymentMethod) {
+                    alert('Por favor completa todos los campos');
+                    return;
+                }
+                
+                // Calculate total
+                const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                
+                // Show success message
+                alert(`¡Compra realizada con éxito!\n\nNombre: ${fullName}\nDocumento: ${documentNumber}\nEdad: ${age}\nTeléfono: ${phone}\nEmail: ${email}\nDirección: ${address}\nMétodo de pago: ${paymentMethod}\nTotal: $${total.toLocaleString('es-CO')}\n\nGracias por tu compra en innovarte.com`);
+                
+                // Clear cart
+                cart = [];
+                updateCartCount();
+                updateCartDisplay();
+                
+                // Close modal
+                checkoutModal.classList.remove('active');
+                cartSidebar.classList.remove('active');
+                document.body.style.overflow = 'auto';
             });
             
             // Initial setup
